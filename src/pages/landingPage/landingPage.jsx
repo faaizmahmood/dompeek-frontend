@@ -51,7 +51,7 @@ const LandingPage = () => {
                         </div>
 
                         {/* SSL Section */}
-                        {/* {isSslDataValid && ( */}
+                        {sslData && (
                         <div className={`${styles.domainOverview} ${styles.resultCard} mt-4`}>
                             <h4><FaLock className="me-2" /> SSL & IP Info</h4>
                             <div className="mt-4">
@@ -61,7 +61,7 @@ const LandingPage = () => {
                                 <h6 className="mt-3">Location: <span>{sslData?.certificates[0].issuer?.country || 'N/A'}</span></h6>
                             </div>
                         </div>
-                        {/* )} */}
+                        )}
 
                         {/* DNS Records (static placeholder) */}
                         {dnsData && (
