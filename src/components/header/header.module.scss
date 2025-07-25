@@ -1,0 +1,38 @@
+.header {
+    padding: 18px 0px;
+    background: transparent;
+
+    .headerContainer {
+
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+
+        .logo {
+            font-size: 2.2em;
+            font-weight: bold;
+            color: #60a5fa;
+            letter-spacing: 1px;
+        }
+
+        .logo span {
+            color: #a78bfa;
+        }
+
+        nav a {
+            color: #64748b;
+            text-decoration: none;
+            margin: 0 10px;
+            font-weight: 500;
+            font-size: 1.08em;
+        }
+
+        nav a:hover {
+            color: #fff;
+        }
+
+    }
+
+
+
+}

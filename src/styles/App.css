@@ -1,0 +1,24 @@
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+  font-family: 'Segoe UI', Arial, sans-serif !important;
+  color: white;
+}
+
+body {
+  background-color: #0f172a !important;
+}
+
+
+.error {
+  margin-top: 5px;
+  color: rgb(212, 52, 52);
+  font-size: 12px;
+  /* text-align: start; */
+}
+
+
+#nprogress .bar {
+  background: linear-gradient(90deg, #6366f1, #38bdf8);
+}
