@@ -70,14 +70,14 @@ const WhoisDetails = ({ whoisData }) => {
                 <div className={`col-md-6 `}>
                     <div className={styles.card}>
                         <h6>Recent WHOIS Events:</h6>
-                        <p><strong>Created:</strong> {new Date(whoisData?.audit?.createdDate || '').toDateString()}</p>
-                        <p><strong>Updated:</strong> {new Date(whoisData?.audit?.updatedDate || '').toDateString()}</p>
+                        <p className='mt-3'><span>Created:</span> {new Date(whoisData?.audit?.createdDate || '').toDateString()}</p>
+                        <p><span>Updated:</span> {new Date(whoisData?.audit?.updatedDate || '').toDateString()}</p>
                     </div>
                 </div>
                 <div className={`col-md-6`}>
                     <div className={styles.card}>
                         <h6><FaExclamationTriangle className="me-1" /> Abuse Contact:</h6>
-                        <p>{abuseEmail}</p>
+                        <p className='mt-3'>{abuseEmail}</p>
                         <h6 className="mt-3">Transfer Lock:</h6>
                         <p>{status?.includes('clientTransferProhibited') ? 'Enabled' : 'Disabled'}</p>
                     </div>

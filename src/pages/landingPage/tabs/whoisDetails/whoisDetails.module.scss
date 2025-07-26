@@ -24,6 +24,22 @@
         border-radius: 10px;
         height: 100%;
 
+                h6 {
+            font-weight: 400;
+            color: #9ca3af;
+        }
+
+        p {
+            font-size: 18px;
+            color: #38bdf8;
+            font-weight: 600;
+
+            span{
+                font-weight: 400;
+            color: #9ca3af;
+            }
+        }
+
     }
 
 }
