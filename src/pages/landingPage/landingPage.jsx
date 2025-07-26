@@ -1,6 +1,14 @@
+// import { useState } from 'react';
 import styles from './landingPage.module.scss';
 import useLandingPage from "./useLandingPage";
-import { FaGlobe, FaLock, FaServer, FaUserShield, FaChartLine } from 'react-icons/fa';
+import { FaGlobe, FaLock, FaServer, FaUserShield, FaChartLine, FaBrain, FaHistory } from 'react-icons/fa';
+import Overview from './tabs/overview/overview';
+import WhoisDetails from './tabs/whoisDetails/whoisDetails';
+import DnsRecords from './tabs/dnsRecords/dnsRecords';
+import SalesInfo from './tabs/salesInfo/salesInfo';
+import HistoryArchive from './tabs/historyArchive/historyArchive';
+import AiInsights from './tabs/aiInsights/aiInsights';
+import Availability from './tabs/availability/availability';
 
 const LandingPage = () => {
     const {
@@ -8,10 +16,21 @@ const LandingPage = () => {
         whoisData,
         sslData,
         safeFormatDate,
-        dnsData
+        dnsData,
+        activeTab,
+        setActiveTab
     } = useLandingPage();
 
-    //   const isSslDataValid = sslData?.certificates?.[0] && sslData?.domainName === formik.values.domain;
+
+    const tabs = [
+        { key: "available", label: "Availability", icon: <FaGlobe color='#60a5fa' /> },
+        { key: "overview", label: "Overview", icon: <FaGlobe color='#60a5fa' /> },
+        { key: "whois", label: "WHOIS", icon: <FaUserShield color='#60a5fa' /> },
+        { key: "dns", label: "DNS", icon: <FaServer color='#60a5fa' /> },
+        { key: "sales", label: "Sales", icon: <FaChartLine color='#60a5fa' /> },
+        { key: "history", label: "History", icon: <FaHistory color='#60a5fa' /> },
+        { key: "insights", label: "AI Insights", icon: <FaBrain color='#60a5fa' /> },
+    ];
 
     return (
         <main className={styles.landingPage}>
@@ -36,115 +55,56 @@ const LandingPage = () => {
                         <div className="error">{formik.errors.domain}</div>
                     )}
                 </section>
+            </div>
 
-                {whoisData && (
+            {(whoisData || sslData || dnsData) && (
+
+                <div className='container-fluid p-0 mt-5'>
+                    <div className={styles.tabs}>
+                        {tabs.map((tab) => (
+                            <button
+                                key={tab.key}
+                                className={`${styles.tabButton} ${activeTab === tab.key ? styles.active : ''}`}
+                                onClick={() => setActiveTab(tab.key)}
+                            >
+                                {tab.icon} {tab.label}
+                            </button>
+                        ))}
+                    </div>
+
                     <section className={styles.resultDashboard}>
 
-                        {/* Domain Overview */}
-                        <div className={`${styles.domainOverview} ${styles.resultCard}`}>
-                            <h4><FaGlobe className="me-2" /> Domain Overview</h4>
-                            <div className="mt-4">
-                                <h6>Domain Name: <span>{whoisData?.domainName || 'N/A'}</span></h6>
-                                <h6 className="mt-3">Created: <span>{safeFormatDate(whoisData?.createdDate, whoisData?.registryData?.createdDate)}</span></h6>
-                                <h6 className="mt-3">Expires: <span>{safeFormatDate(whoisData?.expiresDate, whoisData?.registryData?.expiresDate)}</span></h6>
-                            </div>
-                        </div>
-
-                        {/* SSL Section */}
-                        {sslData && (
-                        <div className={`${styles.domainOverview} ${styles.resultCard} mt-4`}>
-                            <h4><FaLock className="me-2" /> SSL & IP Info</h4>
-                            <div className="mt-4">
-                                <h6>SSL Status: <span>Valid until {safeFormatDate(sslData?.certificates[0].validTo)}</span></h6>
-                                <h6>Issuer: <span>{sslData?.certificates[0].issuer?.organization || 'N/A'}</span></h6>
-                                <h6 className="mt-3">IP Address: <span>{sslData?.ip || 'N/A'}</span></h6>
-                                <h6 className="mt-3">Location: <span>{sslData?.certificates[0].issuer?.country || 'N/A'}</span></h6>
-                            </div>
-                        </div>
+                        {activeTab === "available" && (
+                            <Availability whoisData={whoisData} />
                         )}
 
-                        {/* DNS Records (static placeholder) */}
-                        {dnsData && (
-                            <div className={`${styles.domainOverview} ${styles.resultCard} mt-4`}>
-                                <h4><FaServer className="me-2" /> DNS Records</h4>
-                                <div className="mt-4">
-
-                                    {/* A Records */}
-                                    {dnsData.A.length > 0 && (
-                                        <div className="mb-3">
-                                            <h6>A Record:</h6>
-                                            {dnsData.A.map((ip, idx) => (
-                                                <span key={idx} className="d-block">{ip}</span>
-                                            ))}
-                                        </div>
-                                    )}
-
-                                    {/* MX Records */}
-                                    {dnsData.MX.length > 0 && (
-                                        <div className="mb-3">
-                                            <h6>MX Record:</h6>
-                                            {dnsData.MX.map((mx, idx) => (
-                                                <span key={idx} className="d-block">{mx}</span>
-                                            ))}
-                                        </div>
-                                    )}
-
-                                    {/* TXT/SPF Records */}
-                                    {dnsData.TXT.length > 0 && (
-                                        <div className="mb-3">
-                                            <h6>TXT/SPF:</h6>
-                                            {dnsData.TXT.map((txt, idx) => (
-                                                <span key={idx} className="d-block">{txt}</span>
-                                            ))}
-                                        </div>
-                                    )}
-
-                                    {/* NS Records */}
-                                    {dnsData.NS.length > 0 && (
-                                        <div className="mb-3">
-                                            <h6>NS Record:</h6>
-                                            {dnsData.NS.map((ns, idx) => (
-                                                <span key={idx} className="d-block">{ns}</span>
-                                            ))}
-                                        </div>
-                                    )}
-
-                                    {/* SOA Record */}
-                                    {dnsData.SOA.length > 0 && (
-                                        <div className="mb-3">
-                                            <h6>SOA Record:</h6>
-                                            {dnsData.SOA.map((soa, idx) => (
-                                                <span key={idx} className="d-block">{soa}</span>
-                                            ))}
-                                        </div>
-                                    )}
-
-                                </div>
-                            </div>
+                        {activeTab === "overview" && (
+                            <Overview sslData={sslData} safeFormatDate={safeFormatDate} whoisData={whoisData} />
                         )}
 
+                        {activeTab === "whois" && (
+                            <WhoisDetails whoisData={whoisData} />
+                        )}
 
-                        {/* WHOIS Section */}
-                        <div className={`${styles.domainOverview} ${styles.resultCard} mt-4`}>
-                            <h4><FaUserShield className="me-2" /> WHOIS Details</h4>
-                            <div className="mt-4">
-                                <h6>Registrar: <span>{whoisData?.registrant?.organization ?? whoisData?.registrarName ?? 'N/A'}</span></h6>
-                                <h6 className="mt-3">Owner: <span>{whoisData?.registrant?.organization ?? 'Private'}</span></h6>
-                                <h6 className="mt-3">Country: <span>{whoisData?.registrant?.country ?? whoisData?.registryData?.registrant?.country ?? 'N/A'}</span></h6>
-                            </div>
-                        </div>
+                        {activeTab === "dns" && dnsData && (
+                            <DnsRecords dnsData={dnsData} />
+                        )}
 
-                        {/* Coming Soon */}
-                        <div className={`${styles.domainOverview} ${styles.resultCard} mt-4`}>
-                            <h4><FaChartLine className="me-2" /> Coming Soon</h4>
-                            <div className="mt-4">
-                                <h6><span>SEO Score, Valuation, Archive History, etc.</span></h6>
-                            </div>
-                        </div>
+                        {activeTab === "sales" && (
+                            <SalesInfo />
+                        )}
+
+                        {activeTab === "history" && (
+                            <HistoryArchive />
+                        )}
+
+                        {activeTab === "insights" && (
+                            <AiInsights />
+                        )}
 
                     </section>
-                )}
-            </div>
+                </div>
+            )}
         </main>
     );
 };

@@ -1,7 +1,7 @@
 .landingPage {
     // max-width: 1200px;
     margin: 0 auto;
-    padding: 0 20px;
+    // padding: 0 20px;
 
     .hero {
         text-align: center;
@@ -57,7 +57,47 @@
         }
     }
 
+
+    .tabs {
+        display: flex;
+        gap: 1rem;
+        // margin-bottom: 2rem;
+        flex-wrap: wrap;
+
+        .tabButton {
+            color: #60a5fa;
+            border: none;
+            outline: none;
+            padding: 0.5rem 1rem;
+            border-radius: 6px 6px 0px 0px;
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+            background-color: #1E293B;
+            gap: 0.5rem;
+            transition: 0.2s ease;
+            font-weight: bold;
+
+            &:hover {
+                background: #007bff;
+                color: white;
+            }
+        }
+
+        .active {
+            background: #007bff;
+            color: #fff;
+            border-color: #007bff;
+        }
+
+    }
+
+
+
     .resultDashboard {
+
+        background-color: #1E293B;
+        padding: 40px 20px;
 
         .resultCard {
 

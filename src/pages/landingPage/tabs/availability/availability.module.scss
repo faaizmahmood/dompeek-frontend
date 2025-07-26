@@ -1,0 +1,35 @@
+.availability {
+
+    background-color: #111827;
+    padding: 40px 30px;
+    border-radius: 10px;
+
+
+    .loading{
+        width: 100%;
+        height:200px;
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+        align-items: center;
+    }
+
+    button {
+        padding: 5px 20px;
+        border: none;
+        border-radius: 8px;
+        color: #fff;
+        background-color: transparent;
+        border: 1px solid #38bdf8;
+        font-weight: 400;
+        cursor: pointer;
+        font-size: 14px;
+        transition: background 0.2s;
+
+        a{
+            text-decoration: none;
+            color: white !important;
+        }
+    }
+
+}

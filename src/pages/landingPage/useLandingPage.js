@@ -10,8 +10,8 @@ const parseDnsRecords = (dnsRawText) => {
     const records = {
         A: [],
         MX: [],
-        NS: [] ,
-        TXT: [] ,
+        NS: [],
+        TXT: [],
         SOA: [],
         Others: []
     };
@@ -45,6 +45,7 @@ const useLandingPage = () => {
     const [whoisData, setWhoisData] = useState(null);
     const [sslData, setSslData] = useState(null);
     const [dnsData, setDnsData] = useState(null);
+    const [activeTab, setActiveTab] = useState("available");
 
 
     const formik = useFormik({
@@ -109,14 +110,15 @@ const useLandingPage = () => {
                 : "N/A";
     };
 
-
     return {
         formik,
         whoisData,
         sslData,
         formatReadableDate,
         safeFormatDate,
-        dnsData
+        dnsData,
+        activeTab,
+        setActiveTab
     };
 };
 
