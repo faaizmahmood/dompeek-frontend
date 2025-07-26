@@ -87,7 +87,7 @@ const LandingPage = () => {
                         )}
 
                         {activeTab === "dns" && dnsData && (
-                            <DnsRecords dnsData={dnsData} />
+                            <DnsRecords dnsData={dnsData} whoisData={whoisData} />
                         )}
 
                         {activeTab === "sales" && (

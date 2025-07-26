@@ -1,7 +1,7 @@
 import styles from './dnsRecords.module.scss';
 import { FaServer } from 'react-icons/fa';
 
-const DnsRecords = ({ dnsData }) => {
+const DnsRecords = ({ dnsData, whoisData }) => {
     const recordTypes = {
         row1: ['A', 'MX'],
         row2: ['TXT'],
@@ -26,7 +26,16 @@ const DnsRecords = ({ dnsData }) => {
 
     return (
         <div className={`${styles.dnsRecord} ${styles.resultCard}`}>
-            <h4><FaServer className="me-2" /> DNS Records</h4>
+
+            {/* <h4><FaServer className="me-2" /> DNS Records</h4> */}
+
+            <div className={`d-flex gap-3 ${styles.tab_head}`}>
+                            <FaServer size={40} className='mt-2' />
+                            <div>
+                                <h4>Overview</h4>
+                                <p>{whoisData?.domainName || 'N/A'}</p>
+                            </div>
+                        </div>
 
             {/* Row 1: A + MX */}
             <div className="row mt-4">
