@@ -2,43 +2,44 @@ import * as Yup from 'yup';
 import { useFormik } from 'formik';
 import { useState } from 'react';
 import NProgress from '../../utils/nprogressConfig';
+import apiService from '../../utils/apiClient';
 
 const domainRegex = /^(?!:\/\/)([a-zA-Z0-9-_]+\.)+[a-zA-Z]{2,}$/;
 
 // DNS parser utility
-const parseDnsRecords = (dnsRawText) => {
-    const records = {
-        A: [],
-        MX: [],
-        NS: [],
-        TXT: [],
-        SOA: [],
-        Others: []
-    };
+// const parseDnsRecords = (dnsRawText) => {
+//     const records = {
+//         A: [],
+//         MX: [],
+//         NS: [],
+//         TXT: [],
+//         SOA: [],
+//         Others: []
+//     };
 
-    const lines = dnsRawText.split('\n');
+//     const lines = dnsRawText.split('\n');
 
-    for (const line of lines) {
-        const trimmedLine = line.trim();
-        if (!trimmedLine) continue;
+//     for (const line of lines) {
+//         const trimmedLine = line.trim();
+//         if (!trimmedLine) continue;
 
-        const [type, value] = trimmedLine.split(/\s*:\s*/, 2);
+//         const [type, value] = trimmedLine.split(/\s*:\s*/, 2);
 
-        switch (type) {
-            case "A":
-            case "MX":
-            case "NS":
-            case "TXT":
-            case "SOA":
-                records[type].push(value);
-                break;
-            default:
-                records.Others.push(trimmedLine);
-        }
-    }
+//         switch (type) {
+//             case "A":
+//             case "MX":
+//             case "NS":
+//             case "TXT":
+//             case "SOA":
+//                 records[type].push(value);
+//                 break;
+//             default:
+//                 records.Others.push(trimmedLine);
+//         }
+//     }
 
-    return records;
-};
+//     return records;
+// };
 
 const useLandingPage = () => {
 
@@ -59,22 +60,21 @@ const useLandingPage = () => {
         }),
         onSubmit: async (values) => {
             console.log('Analyzing domain:', values.domain);
-            const domain = values.domain
+
+            const domain = values.domain;
+
             try {
                 NProgress.start();
 
-                const whoisRes = await fetch(`https://www.whoisxmlapi.com/whoisserver/WhoisService?apiKey=at_WTzi4E3K1PSnV0LPulsLaTM9f90oM&domainName=${domain}&outputFormat=JSON`);
-                const whoisJson = await whoisRes.json();
-                setWhoisData(whoisJson.WhoisRecord);
+                const whoisJson = await apiService.get('/domain/whois', { domain });
+                setWhoisData(whoisJson.data);
 
-                const sslRes = await fetch(`https://ssl-certificates.whoisxmlapi.com/api/v1?apiKey=at_WTzi4E3K1PSnV0LPulsLaTM9f90oM&domainName=${domain}`);
-                const sslJson = await sslRes.json();
-                setSslData(sslJson);
+                const sslJson = await apiService.get('/domain/ssl', { domain });
+                setSslData(sslJson.data);
 
-                const dnsRes = await fetch(`https://api.hackertarget.com/dnslookup/?q=${domain}`);
-                const dnsRawText = await dnsRes.text();
-                const parsedDns = parseDnsRecords(dnsRawText);
-                setDnsData(parsedDns);
+                const dnsRawText = await apiService.get('/domain/dns', { domain });
+                // const parsedDns = parseDnsRecords(dnsRawText);
+                setDnsData(dnsRawText.data);
 
             } catch (error) {
                 console.error("Error fetching domain info:", error);

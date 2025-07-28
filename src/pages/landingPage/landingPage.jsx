@@ -1,7 +1,8 @@
 // import { useState } from 'react';
 import styles from './landingPage.module.scss';
 import useLandingPage from "./useLandingPage";
-import { FaGlobe, FaLock, FaServer, FaUserShield, FaChartLine, FaBrain, FaHistory } from 'react-icons/fa';
+import { FaGlobe, FaBan, FaServer, FaUserShield, FaChartLine, FaBrain, FaHistory, FaNetworkWired } from 'react-icons/fa';
+import { BiTransferAlt } from 'react-icons/bi';
 import Overview from './tabs/overview/overview';
 import WhoisDetails from './tabs/whoisDetails/whoisDetails';
 import DnsRecords from './tabs/dnsRecords/dnsRecords';
@@ -9,6 +10,9 @@ import SalesInfo from './tabs/salesInfo/salesInfo';
 import HistoryArchive from './tabs/historyArchive/historyArchive';
 import AiInsights from './tabs/aiInsights/aiInsights';
 import Availability from './tabs/availability/availability';
+import { useEffect } from 'react';
+import BlackList from './tabs/blacklist/blacklist';
+import ReverseIP from './tabs/reverseIP/reverseIP';
 
 const LandingPage = () => {
     const {
@@ -21,12 +25,18 @@ const LandingPage = () => {
         setActiveTab
     } = useLandingPage();
 
+    useEffect(() => {
+        console.log(whoisData)
+    }, [whoisData])
+
 
     const tabs = [
         { key: "available", label: "Availability", icon: <FaGlobe color='#60a5fa' /> },
         { key: "overview", label: "Overview", icon: <FaGlobe color='#60a5fa' /> },
         { key: "whois", label: "WHOIS", icon: <FaUserShield color='#60a5fa' /> },
         { key: "dns", label: "DNS", icon: <FaServer color='#60a5fa' /> },
+        { key: "blacklist", label: "Blacklist", icon: <FaBan color='#60a5fa' /> },
+        { key: "reverseip", label: "Reverse IP", icon: <BiTransferAlt color='#60a5fa' /> },
         { key: "sales", label: "Sales", icon: <FaChartLine color='#60a5fa' /> },
         { key: "history", label: "History", icon: <FaHistory color='#60a5fa' /> },
         { key: "insights", label: "AI Insights", icon: <FaBrain color='#60a5fa' /> },
@@ -90,9 +100,18 @@ const LandingPage = () => {
                             <DnsRecords dnsData={dnsData} whoisData={whoisData} />
                         )}
 
+                        {activeTab === "blacklist" && (
+                            <BlackList whoisData={whoisData} />
+                        )}
+
+                        {activeTab === "reverseip" && (
+                            <ReverseIP whoisData={whoisData} />
+                        )}
+
                         {activeTab === "sales" && (
                             <SalesInfo />
                         )}
+
 
                         {activeTab === "history" && (
                             <HistoryArchive />

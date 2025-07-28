@@ -1,0 +1,33 @@
+.reverseIP {
+
+    background: #111827;
+    padding: 1rem;
+    border-radius: 10px;
+    color: black !important;
+    height: 100%;
+
+    .tab_head {
+
+        h4 {
+            margin: 0 !important;
+        }
+
+        p {
+            color: #007bff;
+        }
+
+    }
+
+    .dataGridWrapper {
+
+        background-color: #232949;
+        // padding: 20px;
+        margin-top: 15px;
+        border-radius: 10px;
+
+        .css-71t9zv-MuiList-root{
+            background-color: #232949 !important;
+        }
+    }
+
+}

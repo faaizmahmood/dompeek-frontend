@@ -1,0 +1,48 @@
+.blacklist {
+
+    background-color: #111827;
+    padding: 40px 30px;
+    border-radius: 10px;
+
+
+     .tab_head {
+
+        h4 {
+            margin: 0 !important;
+        }
+
+        p {
+            color: #007bff;
+        }
+
+    }
+
+
+    .section {
+        background: #232949;
+        padding: 1rem;
+        border-radius: 10px;
+        color: black !important;
+        height: 100%;
+
+        h6 {
+            font-weight: 600;
+            margin-bottom: 0.5rem;
+            font-size: 22px;
+            color: #A78BFA;
+            
+        }
+
+        p {
+           font-weight: 400;
+            color: #9ca3af;
+        }
+
+        ul {
+                            font-size: 18px;
+                color: #38bdf8;
+                font-weight: 600;
+        }
+    }
+
+}
