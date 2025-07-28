@@ -48,7 +48,7 @@ const Overview = ({ whoisData, sslData, safeFormatDate }) => {
                 </div>
 
                 {/* SSL Info */}
-                <div className="col-12 col-md-6">
+                <div className="col-12 mt-md-0 mt-3 col-md-6">
                     <div className={styles.OverviewCard}>
                         <h4><FaLock className="me-2" />SSL & IP Info</h4>
                         <h6 className="mt-4">

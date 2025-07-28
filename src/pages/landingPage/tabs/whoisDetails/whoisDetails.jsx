@@ -33,7 +33,7 @@ const WhoisDetails = ({ whoisData }) => {
                         <p>{whoisData?.registrarName || 'N/A'}</p>
                     </div>
                 </div>
-                <div className={`col-md-4 `}>
+                <div className={`col-md-4 mt-md-0 mt-3`}>
                     <div className={styles.card}>
                         <h6><FaRegCalendarAlt className="me-1" /> Registered On:</h6>
                         <p>{createdDate || 'N/A'}</p>
@@ -42,7 +42,7 @@ const WhoisDetails = ({ whoisData }) => {
                     </div>
 
                 </div>
-                <div className={`col-md-4`}>
+                <div className={`col-md-4 mt-md-0 mt-3`}>
                     <div className={styles.card}>
                         <h6><FaServer className="me-1" /> Name Servers:</h6>
                         <ul className="ps-3">
@@ -54,7 +54,7 @@ const WhoisDetails = ({ whoisData }) => {
             </div>
 
             {/* Row 2: WHOIS status and Guard */}
-            <div className="row mt-4">
+            <div className="row mt-md-4 mt-3">
                 <div className={`col-12 `}>
                     <div className={styles.card}>
                         <h6><FaLock className="me-1" /> Status:</h6>
@@ -66,7 +66,7 @@ const WhoisDetails = ({ whoisData }) => {
             </div>
 
             {/* Row 3: Audit events and abuse contact */}
-            <div className="row mt-4">
+            <div className="row mt-md-4 mt-3">
                 <div className={`col-md-6 `}>
                     <div className={styles.card}>
                         <h6>Recent WHOIS Events:</h6>
@@ -74,7 +74,7 @@ const WhoisDetails = ({ whoisData }) => {
                         <p><span>Updated:</span> {new Date(whoisData?.audit?.updatedDate || '').toDateString()}</p>
                     </div>
                 </div>
-                <div className={`col-md-6`}>
+                <div className={`col-md-6 mt-md-0 mt-3`}>
                     <div className={styles.card}>
                         <h6><FaExclamationTriangle className="me-1" /> Abuse Contact:</h6>
                         <p className='mt-3'>{abuseEmail}</p>
