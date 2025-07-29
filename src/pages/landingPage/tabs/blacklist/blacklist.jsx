@@ -32,7 +32,7 @@ const BlackList = ({ whoisData }) => {
         <div className={`${styles.blacklist}`}>
 
             <div className={`d-flex gap-3 ${styles.tab_head}`}>
-                <FaBan size={40} className="mt-2" />
+                <FaBan color='#fff'r size={40} className="mt-2" />
                 <div>
                     <h4>BlackList</h4>
                     <p>{whoisData?.domainName}</p>

@@ -3,7 +3,12 @@
   padding: 0;
   box-sizing: border-box;
   font-family: 'Segoe UI', Arial, sans-serif !important;
-  color: white;
+  /* color: white; */
+}
+
+
+:root{
+  --primary-color:#0f172a; 
 }
 
 body {
@@ -21,4 +26,15 @@ body {
 
 #nprogress .bar {
   background: linear-gradient(90deg, #6366f1, #38bdf8);
+}
+
+.ps-menuitem-root:hover .pro-inner-item,
+.ps-menuitem-root:hover .pro-icon-wrapper {
+  color: #3b82f6 !important;
+}
+
+.ps-menuitem-root.ps-active .pro-inner-item,
+.ps-menuitem-root.ps-active .pro-icon-wrapper {
+  color: #1A1E34 !important;
+  font-weight: 600;
 }

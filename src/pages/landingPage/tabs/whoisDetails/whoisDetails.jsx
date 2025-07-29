@@ -16,7 +16,7 @@ const WhoisDetails = ({ whoisData }) => {
         <div className={`${styles.whoIsDetails} ${styles.resultCard}`}>
         
             <div className={`d-flex gap-3 ${styles.tab_head}`}>
-                <FaUserShield size={40} className='mt-2' />
+                <FaUserShield color='#fff' size={40} className='mt-2' />
                 <div>
                     <h4>Overview</h4>
                     <p>{whoisData?.domainName || 'N/A'}</p>

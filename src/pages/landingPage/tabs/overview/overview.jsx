@@ -22,7 +22,7 @@ const Overview = ({ whoisData, sslData, safeFormatDate }) => {
         <div className={styles.domainOverview}>
             {/* Header */}
             <div className={`d-flex gap-3 ${styles.tab_head}`}>
-                <FaGlobe size={40} className="mt-2" />
+                <FaGlobe color='#fff' size={40} className="mt-2" />
                 <div>
                     <h4>Overview</h4>
                     <p>{domainName}</p>

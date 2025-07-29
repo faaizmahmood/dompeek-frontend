@@ -13,6 +13,9 @@ import Availability from './tabs/availability/availability';
 import { useEffect } from 'react';
 import BlackList from './tabs/blacklist/blacklist';
 import ReverseIP from './tabs/reverseIP/reverseIP';
+import Model from '../../components/model/model';
+import { FaExclamationTriangle } from 'react-icons/fa'
+import TabLoading from '../../components/tabLoading/tabLoading';
 
 const LandingPage = () => {
     const {
@@ -22,7 +25,10 @@ const LandingPage = () => {
         safeFormatDate,
         dnsData,
         activeTab,
-        setActiveTab
+        setActiveTab,
+        handleCloseModel,
+        showModal,
+        loading
     } = useLandingPage();
 
     useEffect(() => {
@@ -67,63 +73,86 @@ const LandingPage = () => {
                 </section>
             </div>
 
-            {(whoisData || sslData || dnsData) && (
+            {
+                loading ? <TabLoading /> : (
+                    <>
+                        {(whoisData || sslData || dnsData) && (
 
-                <div className='container-fluid p-0 mt-5'>
-                    <div className={styles.tabs}>
-                        {tabs.map((tab) => (
-                            <button
-                                key={tab.key}
-                                className={`${styles.tabButton} ${activeTab === tab.key ? styles.active : ''}`}
-                                onClick={() => setActiveTab(tab.key)}
-                            >
-                                {tab.icon} {tab.label}
-                            </button>
-                        ))}
+                            <div className='container-fluid p-0 mt-5'>
+                                <div className={styles.tabs}>
+                                    {tabs.map((tab) => (
+                                        <button
+                                            key={tab.key}
+                                            className={`${styles.tabButton} ${activeTab === tab.key ? styles.active : ''}`}
+                                            onClick={() => setActiveTab(tab.key)}
+                                        >
+                                            {tab.icon} {tab.label}
+                                        </button>
+                                    ))}
+                                </div>
+
+                                <section className={styles.resultDashboard}>
+
+                                    {activeTab === "available" && (
+                                        <Availability whoisData={whoisData} />
+                                    )}
+
+                                    {activeTab === "overview" && (
+                                        <Overview sslData={sslData} safeFormatDate={safeFormatDate} whoisData={whoisData} />
+                                    )}
+
+                                    {activeTab === "whois" && (
+                                        <WhoisDetails whoisData={whoisData} />
+                                    )}
+
+                                    {activeTab === "dns" && dnsData && (
+                                        <DnsRecords dnsData={dnsData} whoisData={whoisData} />
+                                    )}
+
+                                    {activeTab === "blacklist" && (
+                                        <BlackList whoisData={whoisData} />
+                                    )}
+
+                                    {activeTab === "reverseip" && (
+                                        <ReverseIP whoisData={whoisData} />
+                                    )}
+
+                                    {activeTab === "sales" && (
+                                        <SalesInfo />
+                                    )}
+
+
+                                    {activeTab === "history" && (
+                                        <HistoryArchive />
+                                    )}
+
+                                    {activeTab === "insights" && (
+                                        <AiInsights />
+                                    )}
+
+                                </section>
+                            </div>
+                        )}
+                    </>
+                )
+            }
+
+
+
+            <Model showModal={showModal} handleClose={handleCloseModel}>
+                <div className={styles.limitReached}>
+                    <div className={styles.animatedIcon}>
+                        <FaExclamationTriangle />
                     </div>
-
-                    <section className={styles.resultDashboard}>
-
-                        {activeTab === "available" && (
-                            <Availability whoisData={whoisData} />
-                        )}
-
-                        {activeTab === "overview" && (
-                            <Overview sslData={sslData} safeFormatDate={safeFormatDate} whoisData={whoisData} />
-                        )}
-
-                        {activeTab === "whois" && (
-                            <WhoisDetails whoisData={whoisData} />
-                        )}
-
-                        {activeTab === "dns" && dnsData && (
-                            <DnsRecords dnsData={dnsData} whoisData={whoisData} />
-                        )}
-
-                        {activeTab === "blacklist" && (
-                            <BlackList whoisData={whoisData} />
-                        )}
-
-                        {activeTab === "reverseip" && (
-                            <ReverseIP whoisData={whoisData} />
-                        )}
-
-                        {activeTab === "sales" && (
-                            <SalesInfo />
-                        )}
-
-
-                        {activeTab === "history" && (
-                            <HistoryArchive />
-                        )}
-
-                        {activeTab === "insights" && (
-                            <AiInsights />
-                        )}
-
-                    </section>
+                    <h2>Limit Reached</h2>
+                    <p>You’ve hit the limit for free domain lookups (3).</p>
+                    <p>Sign up now to unlock unlimited analysis, blacklist checks, SSL reports, and more!</p>
+                    <div className={styles.actions}>
+                        {/* <button onClick={handleCloseModel}>Close</button> */}
+                        <button>Create Free Account</button>
+                    </div>
                 </div>
-            )}
+            </Model>
         </main>
     );
 };

@@ -58,6 +58,26 @@
     }
 
 
+    .limitReached {
+
+        .animatedIcon {
+            font-size: 3rem;
+            color: #facc15;
+            margin-bottom: 1rem;
+            animation: bounce 1.2s infinite;
+        }
+
+        button {
+            padding: 10px 20px;
+            border: none;
+            outline: none;
+            border-radius: 5px;
+            background-color: var(--primary-color);
+            color: white;
+        }
+    }
+
+
     .tabs {
         display: flex;
         flex-wrap: wrap;

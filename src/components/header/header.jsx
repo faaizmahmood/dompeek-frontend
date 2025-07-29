@@ -1,31 +1,51 @@
 import { useState } from 'react';
 import styles from './header.module.scss';
 import { FaBars, FaTimes } from 'react-icons/fa';
-// import NavLink
+import { NavLink } from 'react-router-dom';
+import { useAppSelector } from '../../redux/hooks';
 
 const Header = () => {
     const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
+    const { token, profile } = useAppSelector((state) => state.user);
 
     return (
         <header className={styles.header}>
             <div className={`container ${styles.headerContainer}`}>
                 {/* Logo */}
-                <div className={styles.logo}>
+                <NavLink to="/" className={styles.logo}>
                     DomPeek<span>.com</span>
-                </div>
+                </NavLink>
 
                 {/* Desktop Navigation */}
                 <nav className={styles.desktopNav}>
-                    <a href="#">Home</a>
-                    <a href="#">Features</a>
-                    <a href="#">Pricing</a>
-                    <a href="#">Contact</a>
+                    <NavLink to="/">Home</NavLink>
+                    <NavLink to="/#features">Features</NavLink>
+                    <NavLink to="/pricing">Pricing</NavLink>
+                    <NavLink to="/#contact">Contact</NavLink>
                 </nav>
 
-                {/* Auth Buttons */}
+                {/* Auth / User */}
                 <div className={styles.authButtons}>
-                    <button className={styles.signIn}>Sign In</button>
-                    <button className={styles.signUp}>Sign Up</button>
+                    {!token ? (
+                        <>
+                            <NavLink to="/signin">
+                                <button className={styles.signIn}>Sign In</button>
+                            </NavLink>
+                            <NavLink to="/signup">
+                                <button className={styles.signUp}>Sign Up</button>
+                            </NavLink>
+                        </>
+                    ) : (
+                        <div className={styles.userInfo}>
+                            {/* <span className='me-3 text-white'>
+                                Hi, {profile?.data?.name?.split(' ')[0]?.charAt(0).toUpperCase() + profile?.data?.name?.split(' ')[0]?.slice(1)}
+                            </span> */}
+
+                            <NavLink to="/dashboard">
+                                <button className={styles.dashboardBtn}>Dashboard</button>
+                            </NavLink>
+                        </div>
+                    )}
                 </div>
 
                 {/* Mobile Toggle */}
@@ -40,12 +60,30 @@ const Header = () => {
             {/* Mobile Menu */}
             {mobileMenuOpen && (
                 <div className={styles.mobileMenu}>
-                    <a href="#">Home</a>
-                    <a href="#">Features</a>
-                    <a href="#">Pricing</a>
-                    <a href="#">Contact</a>
-                    <button className={styles.signIn}>Sign In</button>
-                    <button className={styles.signUp}>Sign Up</button>
+                    <NavLink to="/">Home</NavLink>
+                    <NavLink to="/#features">Features</NavLink>
+                    <NavLink to="/pricing">Pricing</NavLink>
+                    <NavLink to="/#contact">Contact</NavLink>
+
+                    {!token ? (
+                        <>
+                            <NavLink to="/signin">
+                                <button className={styles.signIn}>Sign In</button>
+                            </NavLink>
+                            <NavLink to="/signup">
+                                <button className={styles.signUp}>Sign Up</button>
+                            </NavLink>
+                        </>
+                    ) : (
+                        <>
+                            <div className={styles.userInfoMobile}>
+                                <span>Hello, {profile?.name?.split(' ')[0]}</span>
+                            </div>
+                            <NavLink to="/dashboard">
+                                <button className={styles.dashboardBtn}>Dashboard</button>
+                            </NavLink>
+                        </>
+                    )}
                 </div>
             )}
         </header>

@@ -30,7 +30,7 @@ const DnsRecords = ({ dnsData, whoisData }) => {
             {/* <h4><FaServer className="me-2" /> DNS Records</h4> */}
 
             <div className={`d-flex gap-3 ${styles.tab_head}`}>
-                            <FaServer size={40} className='mt-2' />
+                            <FaServer color='#fff' size={40} className='mt-2' />
                             <div>
                                 <h4>Overview</h4>
                                 <p>{whoisData?.domainName || 'N/A'}</p>

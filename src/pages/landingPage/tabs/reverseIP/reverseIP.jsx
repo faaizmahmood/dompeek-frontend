@@ -49,7 +49,7 @@ const ReverseIP = ({ whoisData }) => {
     return (
         <div className={styles.reverseIP}>
             <div className={`d-flex gap-3 ${styles.tab_head}`}>
-                <BiTransferAlt size={40} className="mt-2" />
+                <BiTransferAlt color='#fff' size={40} className="mt-2" />
                 <div>
                     <h4>Reverse IP Lookup</h4>
                     <p>{whoisData?.domainName}</p>

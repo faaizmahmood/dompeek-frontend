@@ -3,7 +3,7 @@ import { FaChartLine } from 'react-icons/fa';
 
 const SalesInfo = () => {
     return (
-        <div className={`${styles.domainOverview} ${styles.resultCard}`}>
+        <div className={`${styles.domainOverview} ${styles.resultCard} text-white`}>
             <h4><FaChartLine className="me-2" /> Sales</h4>
             <div className="mt-4">
                 <p>Domain sale history & valuation coming soon...</p>

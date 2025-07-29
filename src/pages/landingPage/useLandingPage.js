@@ -6,48 +6,14 @@ import apiService from '../../utils/apiClient';
 
 const domainRegex = /^(?!:\/\/)([a-zA-Z0-9-_]+\.)+[a-zA-Z]{2,}$/;
 
-// DNS parser utility
-// const parseDnsRecords = (dnsRawText) => {
-//     const records = {
-//         A: [],
-//         MX: [],
-//         NS: [],
-//         TXT: [],
-//         SOA: [],
-//         Others: []
-//     };
-
-//     const lines = dnsRawText.split('\n');
-
-//     for (const line of lines) {
-//         const trimmedLine = line.trim();
-//         if (!trimmedLine) continue;
-
-//         const [type, value] = trimmedLine.split(/\s*:\s*/, 2);
-
-//         switch (type) {
-//             case "A":
-//             case "MX":
-//             case "NS":
-//             case "TXT":
-//             case "SOA":
-//                 records[type].push(value);
-//                 break;
-//             default:
-//                 records.Others.push(trimmedLine);
-//         }
-//     }
-
-//     return records;
-// };
-
 const useLandingPage = () => {
 
     const [whoisData, setWhoisData] = useState(null);
     const [sslData, setSslData] = useState(null);
     const [dnsData, setDnsData] = useState(null);
     const [activeTab, setActiveTab] = useState("available");
-
+    const [showModal, setShowModel] = useState(false)
+    const [loading, setLoading] = useState(false)
 
     const formik = useFormik({
         initialValues: {
@@ -65,6 +31,7 @@ const useLandingPage = () => {
 
             try {
                 NProgress.start();
+                setLoading(true)
 
                 const whoisJson = await apiService.get('/domain/whois', { domain });
                 setWhoisData(whoisJson.data);
@@ -77,9 +44,18 @@ const useLandingPage = () => {
                 setDnsData(dnsRawText.data);
 
             } catch (error) {
-                console.error("Error fetching domain info:", error);
+
+                if (error.response?.status === 429) {
+                    setShowModel(true);
+                    // OR use a toast/snackbar if using a UI library
+                    // toast.error("Rate limit reached. Please wait...");
+                } else {
+                    alert("An unexpected error occurred. Please try again.");
+                }
+
             } finally {
                 NProgress.done();
+                setLoading(false)
             }
         },
     });
@@ -110,6 +86,11 @@ const useLandingPage = () => {
                 : "N/A";
     };
 
+
+    const handleCloseModel = ()=>{
+setShowModel(false)
+    }
+
     return {
         formik,
         whoisData,
@@ -118,7 +99,10 @@ const useLandingPage = () => {
         safeFormatDate,
         dnsData,
         activeTab,
-        setActiveTab
+        setActiveTab,
+        handleCloseModel,
+        showModal,
+        loading
     };
 };
 

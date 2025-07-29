@@ -11,10 +11,10 @@ const Availability = ({ whoisData }) => {
     return (
         <div className={styles.availability}>
             {isAvailable ? (
-                <h3>🎉 This domain is <strong>available</strong>!</h3>
+                <h3 className='text-white'>🎉 This domain is <strong>available</strong>!</h3>
             ) : (
                 <>
-                    <h3>❌ This domain is <strong>already registered</strong>.</h3>
+                    <h3 className='text-white'>❌ This domain is <strong>already registered</strong>.</h3>
 
                     {loading ? (
                         <TabLoading text={"Fetching Best Alternatives"}/>
@@ -22,7 +22,7 @@ const Availability = ({ whoisData }) => {
                         <>
                             {availableSuggestions.length > 0 ? (
                                 <div className="mt-5">
-                                    <h6>💡 Available Alternatives:</h6>
+                                    <h6 className='text-white'>💡 Available Alternatives:</h6>
                                     <div className="d-flex flex-wrap gap-3 mt-4">
                                         {availableSuggestions.map((alt, idx) => (
                                             <a
@@ -39,7 +39,7 @@ const Availability = ({ whoisData }) => {
                                 </div>
                             ) : (
                                 <div className="mt-4">
-                                    <p className="text-muted">😕 No available alternatives found at this moment.</p>
+                                    <p className='text-white'>😕 No available alternatives found at this moment.</p>
                                 </div>
                             )}
                         </>
