@@ -1,0 +1,64 @@
+.verifyContainer {
+    text-align: center;
+    padding: 2rem;
+
+    @media (max-width:576px) {
+        h4 {
+            font-size: 14px !important;
+        }
+
+        p {
+            font-size: 12px !important;
+        }
+    }
+
+}
+
+.animatedTick,
+.animatedCross {
+    svg {
+        width: 80px;
+        height: 80px;
+        stroke: #28a745;
+        stroke-width: 5;
+        stroke-linecap: round;
+        stroke-linejoin: round;
+        animation: draw 0.8s ease forwards;
+
+        @media (max-width:576px) {
+            width: 40px;
+            height: 40px;
+        }
+
+    }
+
+    .circle {
+        stroke: #28a745;
+        stroke-dasharray: 157;
+        stroke-dashoffset: 157;
+    }
+
+    .check {
+        stroke-dasharray: 100;
+        stroke-dashoffset: 100;
+    }
+
+    .cross {
+        stroke: #dc3545;
+        stroke-dasharray: 60;
+        stroke-dashoffset: 60;
+    }
+
+    &.animatedTick .circle,
+    &.animatedTick .check,
+    &.animatedCross .circle,
+    &.animatedCross .cross {
+        animation: draw 0.6s ease forwards;
+    }
+}
+
+@keyframes draw {
+    to {
+        stroke-dashoffset: 0;
+    }
+}

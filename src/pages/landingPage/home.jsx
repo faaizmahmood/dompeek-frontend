@@ -1,6 +1,6 @@
 // import { useState } from 'react';
-import styles from './landingPage.module.scss';
-import useLandingPage from "./useLandingPage";
+import styles from './home.module.scss';
+import useHome from "./useHome";
 import { FaGlobe, FaBan, FaServer, FaUserShield, FaChartLine, FaBrain, FaHistory, FaNetworkWired } from 'react-icons/fa';
 import { BiTransferAlt } from 'react-icons/bi';
 import Overview from './tabs/overview/overview';
@@ -17,7 +17,7 @@ import Model from '../../components/model/model';
 import { FaExclamationTriangle } from 'react-icons/fa'
 import TabLoading from '../../components/tabLoading/tabLoading';
 
-const LandingPage = () => {
+const Home = () => {
     const {
         formik,
         whoisData,
@@ -29,7 +29,7 @@ const LandingPage = () => {
         handleCloseModel,
         showModal,
         loading
-    } = useLandingPage();
+    } = useHome();
 
     useEffect(() => {
         console.log(whoisData)
@@ -157,4 +157,4 @@ const LandingPage = () => {
     );
 };
 
-export default LandingPage;
+export default Home;

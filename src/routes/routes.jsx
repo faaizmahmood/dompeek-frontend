@@ -1,11 +1,12 @@
 import { Routes, Route, Navigate } from "react-router-dom";
-import LandingPage from "../pages/landingPage/landingPage";
 import Signup from "../pages/auth/signup/signup";
 import Signin from "../pages/auth/signin/signin";
 import Cookies from 'js-cookie';
 
 import ProtectedLayout from "../layout/ProtectedLayout";
 import UnprotectedLayout from "../layout/UnprotectedLayout";
+import Home from "../pages/landingPage/home";
+import VerifyEmail from "../components/emailVerification/VerifyEmail";
 
 // Fake auth check
 const isAuthenticated = () => Cookies.get("authToken");
@@ -38,8 +39,9 @@ const AppRoutes = () => {
 
             {/* Public Layout (for non-auth pages) */}
             <Route element={<UnprotectedLayout />}>
-                <Route path="/" element={<LandingPage />} />
+                <Route path="/" element={<Home />} />
                 <Route path="/pricing" element={<Pricing />} />
+                <Route path="/verify-email/:token" element={<VerifyEmail />} />
                 <Route path="*" element={<PublicNotFound />} />
             </Route>
 

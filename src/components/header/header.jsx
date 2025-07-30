@@ -13,7 +13,7 @@ const Header = () => {
             <div className={`container ${styles.headerContainer}`}>
                 {/* Logo */}
                 <NavLink to="/" className={styles.logo}>
-                    DomPeek<span>.com</span>
+                    DomPeek<span></span>
                 </NavLink>
 
                 {/* Desktop Navigation */}

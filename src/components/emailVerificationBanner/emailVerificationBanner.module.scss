@@ -11,9 +11,13 @@
   font-size: 15px;
   border-radius: 8px;
   margin: 1rem;
-  box-shadow: 0 2px 6px rgba(0,0,0,0.08);
+  box-shadow: 0 2px 6px rgba(0, 0, 0, 0.08);
   position: relative;
   z-index: 10;
+
+  p {
+    margin: 0 !important;
+  }
 }
 
 .icon {
@@ -29,5 +33,82 @@
 
   &:hover {
     color: #004085;
+  }
+}
+
+
+.successContainer {
+  text-align: center;
+  padding: 1rem;
+
+  h4 {
+    margin-top: 1rem;
+    font-weight: 600;
+    color: #333;
+
+    @media (max-width:576px) {
+      & {
+        font-size: 14px;
+      }
+    }
+  }
+
+  p {
+    font-size: 0.95rem;
+    margin-top: 0.5rem;
+
+    @media (max-width:576px) {
+      & {
+        font-size: 12px !important;
+      }
+    }
+  }
+}
+
+.animatedTick {
+  width: 6 0px;
+  margin: 0 auto;
+
+  svg {
+    width: 80px;
+    height: 80px;
+
+    @media (max-width:576px) {
+      & {
+        width: 40px;
+        height: 40px;
+      }
+    }
+
+  }
+
+  .circle {
+    stroke: #4caf50;
+    stroke-width: 3;
+    stroke-dasharray: 166;
+    stroke-dashoffset: 166;
+    stroke-linecap: round;
+    animation: drawCircle 0.6s ease-out forwards;
+  }
+
+  .check {
+    stroke: #4caf50;
+    stroke-width: 3;
+    stroke-dasharray: 48;
+    stroke-dashoffset: 48;
+    stroke-linecap: round;
+    animation: drawCheck 0.4s 0.6s ease-out forwards;
+  }
+}
+
+@keyframes drawCircle {
+  to {
+    stroke-dashoffset: 0;
+  }
+}
+
+@keyframes drawCheck {
+  to {
+    stroke-dashoffset: 0;
   }
 }
