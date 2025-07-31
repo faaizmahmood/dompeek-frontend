@@ -6,7 +6,7 @@ const TabLoading = ({text}) => {
         <>
             <div className={styles.loading}>
                 <HashLoader color="#38bdf8" size={40} />
-                <h4 className="mt-3">{text}</h4>
+                <h4 className="mt-3 text-white">{text}</h4>
             </div>
         </>
     )

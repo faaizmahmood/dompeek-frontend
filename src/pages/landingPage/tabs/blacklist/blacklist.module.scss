@@ -1,11 +1,7 @@
 .blacklist {
 
-    background-color: #111827;
-    padding: 40px 30px;
-    border-radius: 10px;
 
-
-     .tab_head {
+    .tab_head {
 
         h4 {
             margin: 0 !important;
@@ -31,18 +27,30 @@
             margin-bottom: 0.5rem;
             font-size: 22px;
             color: #A78BFA;
-            
+
         }
 
         p {
-           font-weight: 400;
+            font-weight: 400;
             color: #9ca3af;
+            color: white;
         }
 
         ul {
-                            font-size: 18px;
-                color: #38bdf8;
-                font-weight: 600;
+            font-size: 18px;
+            color: #38bdf8;
+            font-weight: 600;
+        }
+
+        p {
+            color: #38bdf8;
+            font-weight: 600 !important;
+            
+            strong {
+                color: #9ca3af;
+                font-size: 18px !important;
+                font-weight: 400 !important;
+            }
         }
     }
 

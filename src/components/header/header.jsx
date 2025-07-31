@@ -3,6 +3,8 @@ import styles from './header.module.scss';
 import { FaBars, FaTimes } from 'react-icons/fa';
 import { NavLink } from 'react-router-dom';
 import { useAppSelector } from '../../redux/hooks';
+import { FiUser } from "react-icons/fi";
+
 
 const Header = () => {
     const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
@@ -18,11 +20,35 @@ const Header = () => {
 
                 {/* Desktop Navigation */}
                 <nav className={styles.desktopNav}>
-                    <NavLink to="/">Home</NavLink>
-                    <NavLink to="/#features">Features</NavLink>
-                    <NavLink to="/pricing">Pricing</NavLink>
-                    <NavLink to="/#contact">Contact</NavLink>
+                    <NavLink
+                        to="/top-domains"
+                        className={({ isActive }) => isActive ? styles.activeLink : ''}
+                    >
+                        Top Domains
+                    </NavLink>
+
+                    <NavLink
+                        to="/features"
+                        className={({ isActive }) => isActive ? styles.activeLink : ''}
+                    >
+                        Features
+                    </NavLink>
+
+                    <NavLink
+                        to="/pricing"
+                        className={({ isActive }) => isActive ? styles.activeLink : ''}
+                    >
+                        Pricing
+                    </NavLink>
+
+                    <NavLink
+                        to="/contact"
+                        className={({ isActive }) => isActive ? styles.activeLink : ''}
+                    >
+                        Contact
+                    </NavLink>
                 </nav>
+
 
                 {/* Auth / User */}
                 <div className={styles.authButtons}>
@@ -41,8 +67,14 @@ const Header = () => {
                                 Hi, {profile?.data?.name?.split(' ')[0]?.charAt(0).toUpperCase() + profile?.data?.name?.split(' ')[0]?.slice(1)}
                             </span> */}
 
-                            <NavLink to="/dashboard">
-                                <button className={styles.dashboardBtn}>Dashboard</button>
+                            <NavLink to="/dashboard" className='text-decoration-none'>
+                                <div className='d-flex gap-2 text-white'>
+                                    <FiUser className='mt-1' />
+                                    <p className="text-capitalize text-decoration-none mb-0">
+                                        {profile?.data.name?.split(' ')[0]?.charAt(0).toUpperCase() +
+                                            profile?.data.name?.split(' ')[0]?.slice(1).toLowerCase()}
+                                    </p>
+                                </div>
                             </NavLink>
                         </div>
                     )}

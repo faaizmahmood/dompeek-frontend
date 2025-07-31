@@ -1,12 +1,11 @@
 // import { useState } from 'react';
 import styles from './home.module.scss';
 import useHome from "./useHome";
-import { FaGlobe, FaBan, FaServer, FaUserShield, FaChartLine, FaBrain, FaHistory, FaNetworkWired } from 'react-icons/fa';
+import { FaGlobe, FaBan, FaServer, FaUserShield, FaChartLine, FaBrain, FaHistory, FaNetworkWired, FaMapMarkerAlt } from 'react-icons/fa';
 import { BiTransferAlt } from 'react-icons/bi';
 import Overview from './tabs/overview/overview';
 import WhoisDetails from './tabs/whoisDetails/whoisDetails';
 import DnsRecords from './tabs/dnsRecords/dnsRecords';
-import SalesInfo from './tabs/salesInfo/salesInfo';
 import HistoryArchive from './tabs/historyArchive/historyArchive';
 import AiInsights from './tabs/aiInsights/aiInsights';
 import Availability from './tabs/availability/availability';
@@ -16,8 +15,15 @@ import ReverseIP from './tabs/reverseIP/reverseIP';
 import Model from '../../components/model/model';
 import { FaExclamationTriangle } from 'react-icons/fa'
 import TabLoading from '../../components/tabLoading/tabLoading';
+import Geolocation from './tabs/geolocation/geolocation';
+import { useAppSelector } from '../../redux/hooks';
 
 const Home = () => {
+
+    const currentUser = useAppSelector((state) => state.user.profile)
+
+    console.log(currentUser)
+
     const {
         formik,
         whoisData,
@@ -43,7 +49,7 @@ const Home = () => {
         { key: "dns", label: "DNS", icon: <FaServer color='#60a5fa' /> },
         { key: "blacklist", label: "Blacklist", icon: <FaBan color='#60a5fa' /> },
         { key: "reverseip", label: "Reverse IP", icon: <BiTransferAlt color='#60a5fa' /> },
-        { key: "sales", label: "Sales", icon: <FaChartLine color='#60a5fa' /> },
+        { key: "geolocation", label: "Geolocation", icon: <FaMapMarkerAlt color='#60a5fa' /> },
         { key: "history", label: "History", icon: <FaHistory color='#60a5fa' /> },
         { key: "insights", label: "AI Insights", icon: <FaBrain color='#60a5fa' /> },
     ];
@@ -93,43 +99,48 @@ const Home = () => {
 
                                 <section className={styles.resultDashboard}>
 
-                                    {activeTab === "available" && (
-                                        <Availability whoisData={whoisData} />
-                                    )}
-
-                                    {activeTab === "overview" && (
-                                        <Overview sslData={sslData} safeFormatDate={safeFormatDate} whoisData={whoisData} />
-                                    )}
-
-                                    {activeTab === "whois" && (
-                                        <WhoisDetails whoisData={whoisData} />
-                                    )}
-
-                                    {activeTab === "dns" && dnsData && (
-                                        <DnsRecords dnsData={dnsData} whoisData={whoisData} />
-                                    )}
-
-                                    {activeTab === "blacklist" && (
-                                        <BlackList whoisData={whoisData} />
-                                    )}
-
-                                    {activeTab === "reverseip" && (
-                                        <ReverseIP whoisData={whoisData} />
-                                    )}
-
-                                    {activeTab === "sales" && (
-                                        <SalesInfo />
-                                    )}
+                                    <div className={`${styles.content}`}>
 
 
-                                    {activeTab === "history" && (
-                                        <HistoryArchive />
-                                    )}
 
-                                    {activeTab === "insights" && (
-                                        <AiInsights />
-                                    )}
+                                        {activeTab === "available" && (
+                                            <Availability whoisData={whoisData} />
+                                        )}
 
+                                        {activeTab === "overview" && (
+                                            <Overview sslData={sslData} safeFormatDate={safeFormatDate} whoisData={whoisData} />
+                                        )}
+
+                                        {activeTab === "whois" && (
+                                            <WhoisDetails whoisData={whoisData} />
+                                        )}
+
+                                        {activeTab === "dns" && dnsData && (
+                                            <DnsRecords dnsData={dnsData} whoisData={whoisData} />
+                                        )}
+
+                                        {activeTab === "blacklist" && (
+                                            <BlackList whoisData={whoisData} />
+                                        )}
+
+                                        {activeTab === "reverseip" && (
+                                            <ReverseIP whoisData={whoisData} />
+                                        )}
+
+                                        {activeTab === "geolocation" && (
+                                            <Geolocation whoisData={whoisData} />
+                                        )}
+
+
+                                        {activeTab === "history" && (
+                                            <HistoryArchive />
+                                        )}
+
+                                        {activeTab === "insights" && (
+                                            <AiInsights />
+                                        )}
+
+                                    </div>
                                 </section>
                             </div>
                         )}
@@ -145,13 +156,21 @@ const Home = () => {
                         <FaExclamationTriangle />
                     </div>
                     <h2>Limit Reached</h2>
-                    <p>You’ve hit the limit for free domain lookups (3).</p>
-                    <p>Sign up now to unlock unlimited analysis, blacklist checks, SSL reports, and more!</p>
+                    <p>You’ve hit the limit for free domain lookups.</p>
+
+                    {currentUser?.success === true ? (
+                        <p>Upgrade your plan to unlock unlimited analysis.</p>
+                    ) : (
+                        <p>Sign up now to unlock unlimited analysis!</p>
+                    )}
+
                     <div className={styles.actions}>
-                        {/* <button onClick={handleCloseModel}>Close</button> */}
-                        <button>Create Free Account</button>
+                        <button>
+                            {currentUser?.success === true ? "Upgrade Plan" : "Create Free Account"}
+                        </button>
                     </div>
                 </div>
+
             </Model>
         </main>
     );

@@ -1,8 +1,6 @@
-.dnsRecord {
+.geoCard {
 
-
-
-     .tab_head {
+    .tab_head {
 
         h4 {
             margin: 0 !important;
@@ -15,23 +13,27 @@
 
     }
 
-
-    .card {
-
-        background-color: #232949;
-        padding: 25px 25px;
+    .cardItem {
         border-radius: 10px;
-        height: 100%;
+        box-shadow: 0 1px 5px rgba(0, 0, 0, 0.08);
+        transition: transform 0.2s ease;
+        background-color: #232949;
+
 
         h6 {
             font-weight: 400;
             color: #9ca3af;
         }
 
-        span {
+        p {
             font-size: 18px;
             color: #38bdf8;
             font-weight: 600;
+
+            span {
+                font-weight: 400;
+                color: #9ca3af;
+            }
         }
 
     }

@@ -3,7 +3,7 @@
     background: transparent;
     position: sticky;
     top: 0;
-    z-index: 1000;
+    // z-index: 1000;
     position: relative;
 
     .headerContainer {
@@ -27,6 +27,11 @@
         nav {
             display: flex;
             gap: 1.5rem;
+
+            .activeLink {
+                color: white !important;
+                font-weight: 500;
+            }
 
             a {
                 color: #64748b;

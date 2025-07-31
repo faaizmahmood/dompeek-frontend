@@ -3,6 +3,7 @@ import { useFormik } from 'formik';
 import { useState } from 'react';
 import NProgress from '../../utils/nprogressConfig';
 import apiService from '../../utils/apiClient';
+import { toast } from 'react-toastify';
 
 const domainRegex = /^(?!:\/\/)([a-zA-Z0-9-_]+\.)+[a-zA-Z]{2,}$/;
 
@@ -50,7 +51,7 @@ const useLandingPage = () => {
                     // OR use a toast/snackbar if using a UI library
                     // toast.error("Rate limit reached. Please wait...");
                 } else {
-                    alert("An unexpected error occurred. Please try again.");
+                    toast.error("An unexpected error occurred. Please try again.");
                 }
 
             } finally {

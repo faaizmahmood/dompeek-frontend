@@ -34,7 +34,7 @@ const Overview = ({ whoisData, sslData, safeFormatDate }) => {
                 {/* Domain Info */}
                 <div className="col-12 col-md-6">
                     <div className={styles.OverviewCard}>
-                        <h4><FaGlobe className="me-2" />Domain Overview</h4>
+                        <h4 className='text-white'><FaGlobe className="me-2" />Domain Overview</h4>
                         <h6 className="mt-4">
                             Domain Name: <span>{domainName}</span>
                         </h6>
@@ -50,7 +50,7 @@ const Overview = ({ whoisData, sslData, safeFormatDate }) => {
                 {/* SSL Info */}
                 <div className="col-12 mt-md-0 mt-3 col-md-6">
                     <div className={styles.OverviewCard}>
-                        <h4><FaLock className="me-2" />SSL & IP Info</h4>
+                        <h4 className='text-white'w><FaLock className="me-2" />SSL & IP Info</h4>
                         <h6 className="mt-4">
                             SSL Status: <span>Valid until {sslValidTo || 'N/A'}</span>
                         </h6>

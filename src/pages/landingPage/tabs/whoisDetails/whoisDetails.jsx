@@ -18,7 +18,7 @@ const WhoisDetails = ({ whoisData }) => {
             <div className={`d-flex gap-3 ${styles.tab_head}`}>
                 <FaUserShield color='#fff' size={40} className='mt-2' />
                 <div>
-                    <h4>Overview</h4>
+                    <h4>WhoIs</h4>
                     <p>{whoisData?.domainName || 'N/A'}</p>
                 </div>
             </div>
@@ -45,7 +45,7 @@ const WhoisDetails = ({ whoisData }) => {
                 <div className={`col-md-4 mt-md-0 mt-3`}>
                     <div className={styles.card}>
                         <h6><FaServer className="me-1" /> Name Servers:</h6>
-                        <ul className="ps-3">
+                        <ul className="ps-3 text-white">
                             {nameservers.map((ns, i) => <li key={i}>{ns}</li>)}
                         </ul>
                     </div>

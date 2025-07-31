@@ -7,6 +7,8 @@ import ProtectedLayout from "../layout/ProtectedLayout";
 import UnprotectedLayout from "../layout/UnprotectedLayout";
 import Home from "../pages/landingPage/home";
 import VerifyEmail from "../components/emailVerification/VerifyEmail";
+import RecentSearches from "../pages/recentSearches/recentSearches";
+import Features from "../pages/features/features";
 
 // Fake auth check
 const isAuthenticated = () => Cookies.get("authToken");
@@ -41,6 +43,7 @@ const AppRoutes = () => {
             <Route element={<UnprotectedLayout />}>
                 <Route path="/" element={<Home />} />
                 <Route path="/pricing" element={<Pricing />} />
+                <Route path="/features" element={<Features />} />
                 <Route path="/verify-email/:token" element={<VerifyEmail />} />
                 <Route path="*" element={<PublicNotFound />} />
             </Route>
@@ -55,7 +58,7 @@ const AppRoutes = () => {
             <Route element={<ProtectedRoute><ProtectedLayout /></ProtectedRoute>}>
                 <Route path="/dashboard" element={<DashboardHome />} />
                 <Route path="/lookup" element={<Lookup />} />
-                <Route path="/history" element={<History />} />
+                <Route path="/history" element={<RecentSearches />} />
                 <Route path="/apis" element={<APIs />} />
                 <Route path="/billing" element={<Billing />} />
                 <Route path="/dashboard/settings" element={<DashboardSettings />} />
