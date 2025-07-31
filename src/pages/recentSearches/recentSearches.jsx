@@ -32,14 +32,11 @@ const RecentSearches = () => {
       <h3>Recent Searches</h3>
 
       <div className='mt-4'>
-        {loading ? (
-          <div style={{ height: 400, display: 'flex', justifyContent: 'center', alignItems: 'center' }}>
-            <span className="spinner-border text-primary" role="status" />
-          </div>
-        ) : (
+
           <DataGrid
             rows={rows}
             columns={columns}
+            loading={loading}
             pageSize={5}
             rowsPerPageOptions={[5, 10]}
             disableSelectionOnClick
@@ -63,7 +60,6 @@ const RecentSearches = () => {
               },
             }}
           />
-        )}
       </div>
 
     </>
