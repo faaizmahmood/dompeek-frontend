@@ -1,61 +1,73 @@
 import { DataGrid } from '@mui/x-data-grid'
-// import { Box, Typography } from '@mui/material'
-import { useAppSelector } from '../../redux/hooks'
-// import moment from 'moment' // You can use this or native Date
+import { useAppDispatch, useAppSelector } from '../../redux/hooks'
+import { useEffect } from 'react'
+import { fetchUserProfile } from '../../redux/authSlice'
+// import moment from 'moment'
 
 const RecentSearches = () => {
-    const currentUser = useAppSelector((state) => state?.user?.profile?.data)
-    const recentSearches = currentUser?.recentSearches || []
+  const currentUser = useAppSelector((state) => state?.user?.profile?.data)
+  const recentSearches = currentUser?.recentSearches || []
+  const dispatch = useAppDispatch();
+  const loading = useAppSelector((state) => state?.user?.loading);
 
-    // Prepare rows
-    const rows = recentSearches.map((search, index) => ({
-        id: index + 1,
-        domain: search.domain,
-        time: new Date(search.timestamp).toLocaleString(), // OR use moment if preferred
-    }))
+  useEffect(() => {
+    dispatch(fetchUserProfile());
+  }, [dispatch]);
 
-    const columns = [
-        { field: 'id', headerName: '#', width: 70 },
-        { field: 'domain', headerName: 'Domain Name', flex: 1 },
-        { field: 'time', headerName: 'Searched At', flex: 1 },
-    ]
+  // Prepare rows
+  const rows = recentSearches.map((search, index) => ({
+    id: index + 1,
+    domain: search.domain,
+    time: new Date(search.timestamp).toLocaleString(), // OR use moment if preferred
+  }))
 
-    return (
-        <>
-            <h3>Recent Searches</h3>
+  const columns = [
+    { field: 'id', headerName: '#', width: 70 },
+    { field: 'domain', headerName: 'Domain Name', flex: 1 },
+    { field: 'time', headerName: 'Searched At', flex: 1 },
+  ]
 
-            <div className='mt-4'>
-                <DataGrid
-  rows={rows}
-  columns={columns}
-  pageSize={5}
-  rowsPerPageOptions={[5, 10]}
-  disableSelectionOnClick
-  sx={{
-    border: 'none',
-    borderRadius: 2,
-    height: 400,
-    boxShadow: 2,
-    '& .MuiDataGrid-columnHeaders': {
-      backgroundColor: '#f5f5f5',
-      fontWeight: 'bold',
-    },
-    '& .MuiDataGrid-row:hover': {
-      backgroundColor: '#f9f9f9',
-    },
-    '& .MuiDataGrid-cell': {
-      borderBottom: '1px solid #eee',
-    },
-    '& .MuiDataGrid-footerContainer': {
-      backgroundColor: '#f5f5f5',
-    },
-  }}
-/>
+  return (
+    <>
+      <h3>Recent Searches</h3>
 
-            </div>
+      <div className='mt-4'>
+        {loading ? (
+          <div style={{ height: 400, display: 'flex', justifyContent: 'center', alignItems: 'center' }}>
+            <span className="spinner-border text-primary" role="status" />
+          </div>
+        ) : (
+          <DataGrid
+            rows={rows}
+            columns={columns}
+            pageSize={5}
+            rowsPerPageOptions={[5, 10]}
+            disableSelectionOnClick
+            sx={{
+              border: 'none',
+              borderRadius: 2,
+              height: 400,
+              boxShadow: 2,
+              '& .MuiDataGrid-columnHeaders': {
+                backgroundColor: '#f5f5f5',
+                fontWeight: 'bold',
+              },
+              '& .MuiDataGrid-row:hover': {
+                backgroundColor: '#f9f9f9',
+              },
+              '& .MuiDataGrid-cell': {
+                borderBottom: '1px solid #eee',
+              },
+              '& .MuiDataGrid-footerContainer': {
+                backgroundColor: '#f5f5f5',
+              },
+            }}
+          />
+        )}
+      </div>
 
-        </>
-    )
+    </>
+  )
 }
 
 export default RecentSearches
