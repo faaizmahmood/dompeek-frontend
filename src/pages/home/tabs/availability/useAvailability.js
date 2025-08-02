@@ -23,7 +23,7 @@ const useAvailability = ({ whoisData }) => {
     const fetchGoDaddySuggestions = async (baseDomain) => {
         setLoading(true);
         try {
-            const response = await apiService.get('/no/domain/suggestions', {
+            const response = await apiService.get('/domain/suggestions', {
                 domain: baseDomain
             });
 
