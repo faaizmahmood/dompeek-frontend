@@ -3,6 +3,7 @@ import styles from './home.module.scss';
 import useHome from "./useHome";
 import { FaGlobe, FaBan, FaServer, FaUserShield, FaChartLine, FaBrain, FaHistory, FaNetworkWired, FaMapMarkerAlt } from 'react-icons/fa';
 import { BiTransferAlt } from 'react-icons/bi';
+import { RiSeoLine } from "react-icons/ri"
 import Overview from './tabs/overview/overview';
 import WhoisDetails from './tabs/whoisDetails/whoisDetails';
 import DnsRecords from './tabs/dnsRecords/dnsRecords';
@@ -17,6 +18,7 @@ import { FaExclamationTriangle } from 'react-icons/fa'
 import TabLoading from '../../components/tabLoading/tabLoading';
 import Geolocation from './tabs/geolocation/geolocation';
 import { useAppSelector } from '../../redux/hooks';
+import Seo from './tabs/seo/seo';
 
 const Home = () => {
 
@@ -50,6 +52,7 @@ const Home = () => {
         { key: "blacklist", label: "Blacklist", icon: <FaBan color='#60a5fa' /> },
         { key: "reverseip", label: "Reverse IP", icon: <BiTransferAlt color='#60a5fa' /> },
         { key: "geolocation", label: "Geolocation", icon: <FaMapMarkerAlt color='#60a5fa' /> },
+        { key: "seo", label: "SEO", icon: <RiSeoLine color='#60a5fa' /> },
         { key: "history", label: "History", icon: <FaHistory color='#60a5fa' /> },
         { key: "insights", label: "AI Insights", icon: <FaBrain color='#60a5fa' /> },
     ];
@@ -131,6 +134,9 @@ const Home = () => {
                                             <Geolocation whoisData={whoisData} />
                                         )}
 
+                                        {activeTab === "seo" && (
+                                            <Seo whoisData={whoisData} />
+                                        )}
 
                                         {activeTab === "history" && (
                                             <HistoryArchive />
@@ -147,7 +153,6 @@ const Home = () => {
                     </>
                 )
             }
-
 
 
             <Model showModal={showModal} handleClose={handleCloseModel}>

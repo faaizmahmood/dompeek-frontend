@@ -5,7 +5,7 @@ import Cookies from 'js-cookie';
 
 import ProtectedLayout from "../layout/ProtectedLayout";
 import UnprotectedLayout from "../layout/UnprotectedLayout";
-import Home from "../pages/landingPage/home";
+import Home from "../pages/home/home";
 import VerifyEmail from "../components/emailVerification/VerifyEmail";
 import RecentSearches from "../pages/recentSearches/recentSearches";
 import Features from "../pages/features/features";
