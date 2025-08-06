@@ -11,6 +11,7 @@ const ReverseIP = ({ whoisData }) => {
     const [error, setError] = useState('');
 
     useEffect(() => {
+        
         if (!whoisData?.domainName) return;
 
         (async () => {

@@ -6,7 +6,7 @@ import styles from './searchTrendChart.module.scss';
 const SearchTrendChart = ({ data }) => {
   if (!data || data.length === 0) return <p>No trend data</p>;
 
-  const formattedData = data.map(item => ({
+  const formattedData = data?.map(item => ({
     name: `${item.month.substring(0, 3)} ${item.year}`,
     value: item.value,
   }));

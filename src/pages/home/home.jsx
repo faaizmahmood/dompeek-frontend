@@ -177,6 +177,7 @@ const Home = () => {
                 </div>
 
             </Model>
+            
         </main>
     );
 };

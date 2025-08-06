@@ -43,7 +43,7 @@ const RecentSearches = () => {
             sx={{
               border: 'none',
               borderRadius: 2,
-              height: 400,
+              height: 500,
               boxShadow: 2,
               '& .MuiDataGrid-columnHeaders': {
                 backgroundColor: '#f5f5f5',

@@ -1,0 +1,31 @@
+// localProgressBar.module.scss
+
+.progressContainer {
+  position: relative;
+  height: 4px;
+  width: 100%;
+  overflow: hidden;
+  opacity: 0;
+  transition: opacity 0.3s ease-in-out;
+}
+
+.active {
+  opacity: 1;
+}
+
+.progressBar {
+  height: 100%;
+  width: 100%;
+  background: linear-gradient(90deg, #5f67ff, #f79a46, #f54242);
+  background-size: 200% 100%;
+  animation: loadingAnim 1.5s linear infinite;
+}
+
+@keyframes loadingAnim {
+  0% {
+    background-position: 200% 0;
+  }
+  100% {
+    background-position: -200% 0;
+  }
+}

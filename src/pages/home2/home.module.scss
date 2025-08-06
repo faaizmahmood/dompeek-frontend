@@ -1,0 +1,244 @@
+.home {
+
+    .hero {
+
+        height: 350px;
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        justify-content: center;
+
+
+        @media (max-width:500px) {
+            height: 450px !important;
+        }
+
+        .content {
+
+            text-align: center;
+
+            h1 {
+                font-size: 2.5em;
+                font-weight: 700;
+                color: #fff;
+                letter-spacing: 0.5px;
+            }
+
+            p {
+                color: #94a3b8;
+                font-size: 20px;
+                margin: 12px 0 32px 0;
+                text-align: center;
+                font-weight: 400;
+            }
+
+            @media (max-width:550px) {
+                & {
+
+                    padding: 0px 40px !important;
+
+                    h1 {
+                        font-size: 2em !important;
+                    }
+
+                    p {
+                        font-size: 16px !important;
+                    }
+                }
+
+            }
+        }
+
+        .inputBox form {
+            display: flex;
+            justify-content: center;
+
+
+            @media (max-width:500px) {
+
+                display: block;
+                text-align: center;
+
+                input[type="text"] {
+                    border-radius: 8px !important;
+                    width: calc(100% - 20px) !important;
+                }
+
+                button {
+                    border-radius: 8px !important;
+                    margin-top: 15px;
+
+                }
+
+            }
+
+            // gap: 10px;
+
+            input[type="text"] {
+                padding: 12px 18px;
+                // height: 60px;
+                font-size: 1.1em;
+                border-radius: 8px 0 0 8px;
+                border: none;
+                background: #1e293b;
+                color: #e2e8f0;
+                outline: none;
+                width: 340px;
+                margin: 0 !important;
+            }
+
+
+            button {
+                padding: 12px 30px;
+                border: none;
+                border-radius: 0 8px 8px 0;
+                background: linear-gradient(90deg, #6366f1, #38bdf8);
+                color: #fff;
+                font-weight: bold;
+                cursor: pointer;
+                font-size: 1.1em;
+                transition: background 0.2s;
+
+                &:hover {
+                    background: linear-gradient(90deg, #a78bfa, #38bdf8);
+                }
+
+            }
+
+        }
+    }
+
+
+    .tabs {
+
+        .tabBtns {
+            display: flex;
+            justify-content: center;
+
+            button {
+                padding: 15px 35px;
+                border: none;
+                outline: none;
+                border-radius: 8px 0 0 8px;
+                background-color: #1E293B;
+                color: white;
+                font-size: 18px;
+                display: flex;
+                align-items: center;
+                position: relative;
+                transition: background 1s ease;
+
+                &:nth-child(2) {
+                    border-radius: 0 8px 8px 0;
+                }
+
+                &.active {
+                    background: linear-gradient(90deg, #6366f1, #38bdf8);
+                    font-weight: 700;
+
+                    &::after {
+                        content: "";
+                        position: absolute;
+                        bottom: -9px;
+                        left: 50%;
+                        transform: translateX(-50%);
+                        width: 20px;
+                        height: 10px;
+                        background: linear-gradient(90deg, #6366f1, #38bdf8);
+                        clip-path: polygon(0 0, 100% 0, 50% 100%);
+                        // z-index: 999;
+                    }
+
+                }
+
+                @media (max-width:500px) {
+                    & {
+                        padding: 10px 25px !important;
+                        margin-top: 10px !important;
+                        font-size: 16px !important;
+                    }
+                }
+
+            }
+        }
+
+        .tabContent {
+            margin-top: 30px;
+            min-height: 150px;
+            background-color: #1E293B;
+            padding: 20px 40px;
+            border-radius: 10px;
+            position: relative;
+
+            .blurOverlay {
+                position: absolute;
+                top: 0;
+                left: 0;
+                width: 100%;
+                height: 100%;
+                backdrop-filter: blur(10px);
+                background-color: rgba(0, 0, 0, 0.3);
+                z-index: 1000;
+                pointer-events: all;
+
+                display: flex;
+                justify-content: center;
+                align-items: center;
+
+                button {
+                    padding: 15px 35px;
+                    border: none;
+                    outline: none;
+                    border-radius: 8px;
+                    background-color: #1E293B;
+                    color: white;
+                    font-size: 18px;
+                    display: flex;
+                    align-items: center;
+                    position: relative;
+                    transition: background 1s ease;
+                }
+
+            }
+
+            @media (max-width:500px) {
+                padding: 20px 20px !important;
+            }
+
+        }
+
+        .tabPanel {
+            opacity: 0;
+            transition: all 0.4s ease-in-out;
+            pointer-events: none;
+
+            &.show {
+                opacity: 1;
+                // transform: translateY(0px);
+                pointer-events: auto;
+            }
+        }
+    }
+
+
+}
+
+
+.limitReached {
+
+    .animatedIcon {
+        font-size: 3rem;
+        color: #facc15;
+        margin-bottom: 1rem;
+        animation: bounce 1.2s infinite;
+    }
+
+    button {
+        padding: 10px 20px;
+        border: none;
+        outline: none;
+        border-radius: 5px;
+        background-color: var(--primary-color);
+        color: white;
+    }
+}

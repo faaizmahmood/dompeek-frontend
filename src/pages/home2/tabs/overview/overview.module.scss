@@ -1,0 +1,157 @@
+.overview {
+
+    .card {
+        background-color: var(--primary-color);
+        padding: 20px;
+        border-radius: 10px;
+        height: 100%;
+
+        h4{
+            color: white;
+            font-weight: 400;
+            font-size: 20px;
+        }
+
+        h6 {
+            font-size: 16px;
+            color: #AAAAAA;
+            font-weight: 400;
+        }
+
+        h5 {
+            color: white;
+            font-weight: 600;
+            font-size: 16px;
+            word-break: break-word;  /* breaks long words */
+  overflow-wrap: break-word; /* fallback for older browsers */
+        }
+    }
+
+    .availibility {
+        background-color: var(--primary-color);
+        padding: 40px;
+        border-radius: 10px;
+
+        h2 {
+            font-size: 30px;
+            font-weight: 400;
+            color: white;
+        }
+
+        hr {
+            border-top: 2px solid #707070;
+        }
+
+        .alternatives {
+
+            h4 {
+                font-size: 18px;
+                color: white;
+            }
+
+            .buttons {
+
+                text-align: center;
+                display: flex;
+                flex-wrap: wrap;
+                justify-content: center;
+                gap: 10px;
+                margin-top: 20px;
+
+                button {
+                    padding: 4px 15px;
+                    border: none;
+                    outline: none;
+                    background-color: #57575740;
+                    border-radius: 20px;
+                    font-size: 14px;
+                    font-weight: 400;
+                    color: white;
+                }
+
+            }
+
+        }
+
+    }
+
+    // .age_whois {}
+
+    .seo {
+
+        .seoChartCard {
+
+            img {
+                margin-top: -10px;
+            }
+
+        }
+
+        .barChart {
+            position: relative;
+
+
+            .fullLenght {
+
+                width: 100%;
+                height: 15px;
+                background-color: #1d294d;
+                border-radius: 10px;
+            }
+
+
+            .progress {
+                position: absolute;
+                top: 0;
+                left: 0;
+                width: 100%;
+                height: 15px;
+                background-color: red;
+                border-radius: 10px;
+                background: linear-gradient(135deg,
+                        #0062ff,
+                        #fb923c,
+                        #ff0000);
+                transition: all 2s ease-in-out;
+
+
+                .percentageContainer {
+
+                    position: absolute;
+                    right: -15px;
+                    bottom: 25px;
+
+                    .percentage {
+                        background-color: #5C6169;
+                        padding: 5px 10px;
+                        font-size: 12px;
+                        width: fit-content;
+                        color: white;
+                        font-weight: 600;
+                        border-radius: 2px;
+                        position: relative;
+
+                        &::before {
+                            content: "";
+                            position: absolute;
+                            bottom: -4px;
+                            left: 50%;
+                            transform: translateX(-50%);
+                            width: 10px;
+                            height: 5px;
+                            background: #5C6169;
+                            clip-path: polygon(0 0, 100% 0, 50% 100%);
+                            z-index: 999;
+
+                        }
+                    }
+
+                }
+
+            }
+
+        }
+
+    }
+
+}

@@ -4,6 +4,7 @@ import { FaBars, FaTimes } from 'react-icons/fa';
 import { NavLink } from 'react-router-dom';
 import { useAppSelector } from '../../redux/hooks';
 import { FiUser } from "react-icons/fi";
+import logo from '../../../src/assets/imgs/logo.png'
 
 
 const Header = () => {
@@ -15,7 +16,8 @@ const Header = () => {
             <div className={`container ${styles.headerContainer}`}>
                 {/* Logo */}
                 <NavLink to="/" className={styles.logo}>
-                    DomPeek<span></span>
+                    <img src={logo} />
+                    {/* DomPeek<span></span> */}
                 </NavLink>
 
                 {/* Desktop Navigation */}
