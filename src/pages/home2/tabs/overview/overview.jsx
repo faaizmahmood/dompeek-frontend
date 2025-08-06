@@ -286,7 +286,7 @@ const Overview = ({ loading, domainData }) => {
 
                                 <div className='row'>
 
-                                    <div className='col-8'>
+                                    <div className='col-lg-8'>
 
                                         <div className={styles.card}>
 
@@ -301,7 +301,7 @@ const Overview = ({ loading, domainData }) => {
                                     </div>
 
 
-                                    <div className='col-4'>
+                                    <div className='col-lg-4 mt-lg-0 mt-4'>
 
                                         <div className={styles.card}>
                                             <h5>Traffic Engagement</h5>
@@ -320,21 +320,21 @@ const Overview = ({ loading, domainData }) => {
                                 <div className='row mt-4'>
 
                                     {/* General Info */}
-                                    <div className='col-6'>
+                                    <div className='col-md-6'>
                                         <div className={styles.card}>
                                             <h4>BlackList - General Info</h4>
 
                                             <div className='row mt-4'>
 
-                                                <div className='col-4'>
+                                                <div className='col-sm-4'>
                                                     <h6>Domain</h6>
                                                     <h5>{blacklist?.domain || 'N/A'}</h5>
                                                 </div>
-                                                <div className='col-4'>
+                                                <div className='col-sm-4'>
                                                     <h6>Root Domain</h6>
                                                     <h5>{blacklist?.root_domain || 'N/A'}</h5>
                                                 </div>
-                                                <div className='col-4'>
+                                                <div className='col-sm-4 '>
                                                     <h6>Country Code</h6>
                                                     <h5>{blacklist?.country_code || 'N/A'}</h5>
                                                 </div>
@@ -343,11 +343,11 @@ const Overview = ({ loading, domainData }) => {
 
                                             <div className='row mt-4'>
 
-                                                <div className='col-4'>
+                                                <div className='col-sm-4'>
                                                     <h6>Language</h6>
                                                     <h5>{blacklist?.language_code || 'N/A'}</h5>
                                                 </div>
-                                                <div className='col-8'>
+                                                <div className='col-sm-8'>
                                                     <h6>Final URL</h6>
                                                     <h5>{blacklist?.final_url || 'N/A'}</h5>
                                                 </div>
@@ -356,11 +356,11 @@ const Overview = ({ loading, domainData }) => {
 
                                             <div className='row mt-4'>
 
-                                                <div className='col-4'>
+                                                <div className='col-sm-4'>
                                                     <h6>Server</h6>
                                                     <h5>{blacklist?.server || 'N/A'}</h5>
                                                 </div>
-                                                <div className='col-8'>
+                                                <div className='col-sm-8'>
                                                     <h6>Page Title</h6>
                                                     <h5>{blacklist?.page_title || 'N/A'}</h5>
                                                 </div>
@@ -372,21 +372,21 @@ const Overview = ({ loading, domainData }) => {
 
                                     {/* Safety Checks */}
 
-                                    <div className='col-6'>
+                                    <div className='col-md-6 mt-md-0 mt-3'>
                                         <div className={styles.card}>
                                             <h4>BlackList - Safety Checks</h4>
 
                                             <div className='row mt-4'>
 
-                                                <div className='col-4'>
+                                                <div className='col-sm-4'>
                                                     <h6>Unsafe</h6>
                                                     <h5>{blacklist?.unsafe || 'False'}</h5>
                                                 </div>
-                                                <div className='col-4'>
+                                                <div className='col-sm-4'>
                                                     <h6>Spamming</h6>
                                                     <h5>{blacklist?.spamming || 'False'}</h5>
                                                 </div>
-                                                <div className='col-4'>
+                                                <div className='col-sm-4'>
                                                     <h6>Malware</h6>
                                                     <h5>{blacklist?.malware || 'False'}</h5>
                                                 </div>
@@ -395,15 +395,15 @@ const Overview = ({ loading, domainData }) => {
 
                                             <div className='row mt-4'>
 
-                                                <div className='col-4'>
+                                                <div className='col-sm-4'>
                                                     <h6>Phishing</h6>
                                                     <h5>{blacklist?.phishing || 'False'}</h5>
                                                 </div>
-                                                <div className='col-4'>
+                                                <div className='col-sm-4'>
                                                     <h6>Suspicious</h6>
                                                     <h5>{blacklist?.suspicious || 'False'}</h5>
                                                 </div>
-                                                <div className='col-4'>
+                                                <div className='col-sm-4'>
                                                     <h6>Adult</h6>
                                                     <h5>{blacklist?.adult || 'False'}</h5>
                                                 </div>
@@ -412,11 +412,11 @@ const Overview = ({ loading, domainData }) => {
 
                                             <div className='row mt-4'>
 
-                                                <div className='col-4'>
+                                                <div className='col-sm-4'>
                                                     <h6>Phishing</h6>
                                                     <h5>{blacklist?.phishing || 'False'}</h5>
                                                 </div>
-                                                <div className='col-4'>
+                                                <div className='col-sm-4'>
                                                     <h6>Riskiest TLD</h6>
                                                     <h5>{blacklist?.risky_tld || 'False'}</h5>
                                                 </div>
@@ -425,13 +425,13 @@ const Overview = ({ loading, domainData }) => {
 
                                         </div>
                                     </div>
-                                    <div className='col-6 mt-3'>
+                                    <div className='col-lg-6 mt-3'>
                                         <div className={styles.card}>
                                             <h4>DNS Record</h4>
 
                                             <div className='row mt-4'>
 
-                                                <div className='col-4'>
+                                                <div className='col-sm-4'>
                                                     <h6>A Records</h6>
                                                     {
                                                         dns?.A.length === 0 ? <h5>N/A</h5> : (
@@ -449,7 +449,7 @@ const Overview = ({ loading, domainData }) => {
                                                         )
                                                     }
                                                 </div>
-                                                <div className='col-8'>
+                                                <div className='col-sm-8'>
                                                     <h6>NS</h6>
                                                     {
                                                         dns?.NS.length === 0 ? <h5>N/A</h5> : (
@@ -550,7 +550,7 @@ const Overview = ({ loading, domainData }) => {
 
                                         </div>
                                     </div>
-                                    <div className='col-6 mt-3'>
+                                    <div className='col-lg-6 mt-3'>
                                         <div className={styles.card}>
                                             <h4>Reverse IP Lookup</h4>
                                             <div className="mt-4">
