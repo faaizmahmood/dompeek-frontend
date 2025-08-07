@@ -21,6 +21,12 @@ const useHome = () => {
 
     const [limitError, setLimitError] = useState(false)
 
+    const [isDomainAvailable, setIsDomainAvailable] = useState(false);
+
+    const [suggestions, setSuggestions] = useState([]);
+
+    const [suggestionsLoading, setSuggestionsLoading] = useState(false);
+
     const currentUser = useAppSelector((state) => state.user.profile)
 
     const [domainData, setDomainData] = useState({
@@ -36,26 +42,53 @@ const useHome = () => {
 
     let domain = ''
 
+
+    const fetchSuggestions = async (domain) => {
+        try {
+            setSuggestionsLoading(true);
+            const res = await apiService.get('/domain/get-suggestions', { domain });
+
+            setSuggestions(res.data ? res.data : []);
+
+        } catch (error) {
+            console.log('Suggestions fetch error:', error);
+        } finally {
+            setSuggestionsLoading(false);
+        }
+    };
+
     const fetchOverviewData = async (domainOverride = null) => {
-
         const params = new URLSearchParams(location.search);
-
         domain = domainOverride || params.get("domain");
-
         if (!domain) return;
 
         try {
-
-
             setLoading(true);
-
-            setLimitError(false)
+            setLimitError(false);
+            setIsDomainAvailable(false);
+            setIsDomainAvailable(false);  // reset before fetch
 
             const res = await apiService.get('/domain/overview', { domain });
 
-            const results = res.data.results || {};
+            // ✅ Handle available domain shortcut
+            if (res.data?.available === true) {
+                setIsDomainAvailable(true);
+                setDomainData({
+                    blacklist: null,
+                    dns: null,
+                    ipGeolocation: null,
+                    reverseIP: null,
+                    seoMetrics: null,
+                    ssl: null,
+                    whois: null,
+                });
 
-            console.log(res.data)
+                fetchSuggestions(domain);
+
+                return; // ⛔️ exit early
+            }
+
+            const results = res.data.results || {};
 
             setDomainData({
                 blacklist: results.blacklist?.success ? results.blacklist.data : null,
@@ -64,21 +97,24 @@ const useHome = () => {
                 reverseIP: results.reverseIP?.success ? results.reverseIP.data : null,
                 seoMetrics: results.seoMetrics?.success ? results.seoMetrics.data : null,
                 ssl: results.ssl?.success ? results.ssl.data : { error: results.ssl?.error || 'SSL fetch failed' },
-                suggestions: results.suggestions?.success ? results.suggestions.data : [],
                 whois: results.whois?.success ? results.whois.data : null,
             });
+
+            fetchSuggestions(domain);
+
 
 
         } catch (error) {
             console.log(error);
             if (error?.response?.status === 429) {
                 setShowModal(true);
-                setLimitError(true)
+                setLimitError(true);
             }
         } finally {
             setLoading(false);
         }
     };
+
 
 
     useEffect(() => {
@@ -109,7 +145,10 @@ const useHome = () => {
         fetchOverviewData,
         domain,
         domainData,
-        limitError
+        limitError,
+        isDomainAvailable,
+        suggestionsLoading,
+        suggestions
     }
 
 }

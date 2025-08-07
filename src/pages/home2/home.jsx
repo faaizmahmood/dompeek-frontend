@@ -25,7 +25,10 @@ const Home = () => {
         fetchOverviewData,
         domain,
         domainData,
-        limitError
+        limitError,
+        isDomainAvailable,
+        suggestionsLoading,
+        suggestions
     } = useHome()
 
 
@@ -73,7 +76,7 @@ const Home = () => {
                 </section>
 
                 {
-                    loading === true || domainData && domainData.whois || limitError ? (
+                    (loading || domainData && domainData.whois || limitError || isDomainAvailable) ? (
                         <>
                             <section className={`${styles.tabs} container mt-4`}>
 
@@ -108,7 +111,7 @@ const Home = () => {
                                         activeTab === 'overview' ? (
                                             <>
                                                 <div className={`${styles.tabPanel} ${activeTab === "overview" ? styles.show : ''}`}>
-                                                    <Overview loading={loading} domainData={domainData} />
+                                                    <Overview loading={loading} domainData={domainData} isDomainAvailable={isDomainAvailable} suggestions={suggestions} suggestionsLoading={suggestionsLoading} />
                                                 </div>
                                             </>
                                         ) : (

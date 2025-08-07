@@ -3,19 +3,20 @@ import { FaCircleXmark } from "react-icons/fa6";
 import { FaCircleCheck } from "react-icons/fa6";
 import CircularProgress from '../../../../components/circularProgress/circularProgress'
 import graph from '../../../../assets/imgs/graph.png'
+import graph2 from '../../../../assets/imgs/graph-2.png'
 import OverviewSkeleton from '../../../../components/overviewSkeleton/overviewSkeleton';
 import useOverview from './useOverview';
 import SearchTrendChart from '../../../../components/searchTrendChart/searchTrendChart';
 import SeoDifficultyChart from '../../../../components/seoDifficultyChart/seoDifficultyChart';
 import TrafficChart from '../../../../components/trafficChart/trafficChart';
 import ReverseIpTable from '../../../../components/reverseIpTable/reverseIpTable';
+import Skeleton from 'react-loading-skeleton';
 
-const Overview = ({ loading, domainData }) => {
+const Overview = ({ loading, domainData, isDomainAvailable, suggestions, suggestionsLoading }) => {
 
 
     const {
         width,
-        isAvailable,
         domainAgeInfo,
         formatReadableDate
     } = useOverview(domainData)
@@ -64,48 +65,63 @@ const Overview = ({ loading, domainData }) => {
                             <div className={`${styles.availibility}`}>
 
                                 <div className='d-flex justify-content-center gap-4'>
-                                    {
-                                        isAvailable ? (
-                                            <>
-                                                <FaCircleCheck size={40} color='#00d351ff' />
-                                                <h2>This domain is available</h2>
-                                            </>
-                                        ) : (
-                                            <>
-                                                <FaCircleXmark size={40} color='#D30000' />
-                                                <h2>This domain is already registered.</h2>
-                                            </>
-                                        )
-                                    }
-
+                                    {isDomainAvailable ? (
+                                        <>
+                                            <FaCircleCheck size={40} color='#00d351ff' />
+                                            <h2>This domain is available</h2>
+                                        </>
+                                    ) : (
+                                        <>
+                                            <FaCircleXmark size={40} color='#D30000' />
+                                            <h2>This domain is already registered.</h2>
+                                        </>
+                                    )}
                                 </div>
 
-                                {
-                                    domainData?.suggestions?.data?.length > 0 ? (
+                                {/* Show Suggestions Always */}
+                                {suggestionsLoading ? (
+                                    <>
+                                        <hr />
+                                        <div className={styles.alternatives}>
+                                            <h4 className='text-center mt-4'>💡 Available Alternatives</h4>
+                                            <div className={styles.buttons}>
+                                                {[...Array(6)].map((_, i) => (
+                                                    <Skeleton
+                                                        key={i}
+                                                        height={28}
+                                                        width={90}
+                                                        borderRadius={20}
+                                                        baseColor="#1E293B"
+                                                        highlightColor="#101D2E"
+                                                        style={{ margin: '0.25rem' }}
+                                                    />
+                                                ))}
+                                            </div>
+                                        </div>
+                                    </>
+                                ) : (
+                                    suggestions?.length > 0 && (
                                         <>
                                             <hr />
-
                                             <div className={styles.alternatives}>
-
                                                 <h4 className='text-center mt-4'>💡 Available Alternatives</h4>
-
                                                 <div className={styles.buttons}>
-                                                    {
-                                                        domainData?.suggestions?.data?.length > 0 ? (
-                                                            domainData.suggestions.data.map((ele, ind) => (
-                                                                <button key={ind}>{ele}</button>
-                                                            ))
-                                                        ) : (
-                                                            <p className='text-white'>No suggestions available.</p>
-                                                        )
-                                                    }
-
+                                                    {suggestions.map((ele, ind) => (
+                                                        <a
+                                                            key={ind}
+                                                            href={`https://www.namecheap.com/domains/registration/results/?domain=${ele}`}
+                                                            target="_blank"
+                                                            rel="noopener noreferrer"
+                                                            className={styles.buttonLink}
+                                                        >
+                                                            <button>{ele}</button>
+                                                        </a>
+                                                    ))}
                                                 </div>
-
                                             </div>
                                         </>
-                                    ) : ""
-                                }
+                                    )
+                                )}
 
 
 
@@ -113,7 +129,7 @@ const Overview = ({ loading, domainData }) => {
 
                             {/*  If Domain is avaibel for sale then there is not data for SEO, IP, etc */}
                             {
-                                !isAvailable ? (
+                                !isDomainAvailable ? (
                                     <>
                                         <div className={`${styles.age_whois} mt-4`}>
 
@@ -194,25 +210,25 @@ const Overview = ({ loading, domainData }) => {
                                                     <div className='row g-3'>
 
                                                         {
-                                                            seoChartCardData.map((ele, ind) => (
-                                                                <>
+                                                            seoChartCardData.map((ele, ind) => {
+                                                                // Define which indices should show graph2
+                                                                const useGraph2At = [0, 3, 4];
+
+                                                                return (
                                                                     <div className='col-sm-6' key={ind}>
                                                                         <div className={`${styles.card} ${styles.seoChartCard}`}>
                                                                             <h6>{ele.lable}</h6>
                                                                             <h5>{ele.value}</h5>
 
                                                                             <div className='text-end'>
-                                                                                {
-                                                                                    ele.showChart ? <img src={graph} /> : ""
-                                                                                }
-
+                                                                                <img src={useGraph2At.includes(ind) ? graph2 : graph} alt="graph" />
                                                                             </div>
-
                                                                         </div>
                                                                     </div>
-                                                                </>
-                                                            ))
+                                                                );
+                                                            })
                                                         }
+
 
                                                     </div>
 
@@ -433,124 +449,132 @@ const Overview = ({ loading, domainData }) => {
                                                     <div className={styles.card}>
                                                         <h4>DNS Record</h4>
 
-                                                        <div className='row mt-4'>
+                                                        {
+                                                            dns === null ? <h6>Failed to fetch DNS Record</h6> : (
+                                                                <>
+                                                                    <div className='row mt-4'>
 
-                                                            <div className='col-sm-4'>
-                                                                <h6>A Records</h6>
-                                                                {
-                                                                    dns?.A.length === 0 ? <h5>N/A</h5> : (
-                                                                        <>
+                                                                        <div className='col-sm-4'>
+                                                                            <h6>A Records</h6>
                                                                             {
-                                                                                dns?.A?.map((ele) => {
-                                                                                    return (
-                                                                                        <>
-                                                                                            <h5>{ele}</h5>
-                                                                                        </>
-                                                                                    )
-                                                                                })
+                                                                                dns?.A?.length === 0 ? <h5>N/A</h5> : (
+                                                                                    <>
+                                                                                        {
+                                                                                            dns?.A?.map((ele) => {
+                                                                                                return (
+                                                                                                    <>
+                                                                                                        <h5>{ele}</h5>
+                                                                                                    </>
+                                                                                                )
+                                                                                            })
+                                                                                        }
+                                                                                    </>
+                                                                                )
                                                                             }
-                                                                        </>
-                                                                    )
-                                                                }
-                                                            </div>
-                                                            <div className='col-sm-8'>
-                                                                <h6>NS</h6>
-                                                                {
-                                                                    dns?.NS.length === 0 ? <h5>N/A</h5> : (
-                                                                        <>
+                                                                        </div>
+                                                                        <div className='col-sm-8'>
+                                                                            <h6>NS</h6>
                                                                             {
-                                                                                dns?.NS?.map((ele) => {
-                                                                                    return (
-                                                                                        <>
-                                                                                            <h5>{ele}</h5>
-                                                                                        </>
-                                                                                    )
-                                                                                })
+                                                                                dns?.NS?.length === 0 ? <h5>N/A</h5> : (
+                                                                                    <>
+                                                                                        {
+                                                                                            dns?.NS?.map((ele) => {
+                                                                                                return (
+                                                                                                    <>
+                                                                                                        <h5>{ele}</h5>
+                                                                                                    </>
+                                                                                                )
+                                                                                            })
+                                                                                        }
+                                                                                    </>
+                                                                                )
                                                                             }
-                                                                        </>
-                                                                    )
-                                                                }
-                                                            </div>
+                                                                        </div>
 
 
-                                                        </div>
+                                                                    </div>
 
-                                                        <div className='row mt-4'>
+                                                                    <div className='row mt-4'>
 
-                                                            <div className='col-12'>
-                                                                <h6>MX</h6>
-                                                                {
-                                                                    dns?.MX.length === 0 ? <h5>N/A</h5> : (
-                                                                        <>
+                                                                        <div className='col-12'>
+                                                                            <h6>MX</h6>
                                                                             {
-                                                                                dns?.MX?.map((ele) => {
-                                                                                    return (
-                                                                                        <>
-                                                                                            <h5>{ele}</h5>
-                                                                                        </>
-                                                                                    )
-                                                                                })
+                                                                                dns?.MX.length === 0 ? <h5>N/A</h5> : (
+                                                                                    <>
+                                                                                        {
+                                                                                            dns?.MX?.map((ele) => {
+                                                                                                return (
+                                                                                                    <>
+                                                                                                        <h5>{ele}</h5>
+                                                                                                    </>
+                                                                                                )
+                                                                                            })
+                                                                                        }
+                                                                                    </>
+                                                                                )
                                                                             }
-                                                                        </>
-                                                                    )
-                                                                }
-                                                            </div>
-                                                            <div className='col-12 mt-4'>
-                                                                <h6>SOA</h6>
-                                                                {
-                                                                    dns?.SOA.length === 0 ? <h5>N/A</h5> : (
-                                                                        <>
+                                                                        </div>
+                                                                        <div className='col-12 mt-4'>
+                                                                            <h6>SOA</h6>
                                                                             {
-                                                                                dns?.SOA?.map((ele) => {
-                                                                                    return (
-                                                                                        <>
-                                                                                            <h5>{ele}</h5>
-                                                                                        </>
-                                                                                    )
-                                                                                })
+                                                                                dns?.SOA.length === 0 ? <h5>N/A</h5> : (
+                                                                                    <>
+                                                                                        {
+                                                                                            dns?.SOA?.map((ele) => {
+                                                                                                return (
+                                                                                                    <>
+                                                                                                        <h5>{ele}</h5>
+                                                                                                    </>
+                                                                                                )
+                                                                                            })
+                                                                                        }
+                                                                                    </>
+                                                                                )
                                                                             }
-                                                                        </>
-                                                                    )
-                                                                }
-                                                            </div>
-                                                            <div className='col-12 mt-4'>
-                                                                <h6>TXT</h6>
-                                                                {
-                                                                    dns?.TXT.length === 0 ? <h5>N/A</h5> : (
-                                                                        <>
+                                                                        </div>
+                                                                        <div className='col-12 mt-4'>
+                                                                            <h6>TXT</h6>
                                                                             {
-                                                                                dns?.TXT?.map((ele) => {
-                                                                                    return (
-                                                                                        <>
-                                                                                            <h5>{ele}</h5>
-                                                                                        </>
-                                                                                    )
-                                                                                })
+                                                                                dns?.TXT.length === 0 ? <h5>N/A</h5> : (
+                                                                                    <>
+                                                                                        {
+                                                                                            dns?.TXT?.map((ele) => {
+                                                                                                return (
+                                                                                                    <>
+                                                                                                        <h5>{ele}</h5>
+                                                                                                    </>
+                                                                                                )
+                                                                                            })
+                                                                                        }
+                                                                                    </>
+                                                                                )
                                                                             }
-                                                                        </>
-                                                                    )
-                                                                }
-                                                            </div>
-                                                            <div className='col-12 mt-4'>
-                                                                <h6>Others</h6>
-                                                                {
-                                                                    dns?.Others.length === 0 ? <h5>N/A</h5> : (
-                                                                        <>
+                                                                        </div>
+                                                                        <div className='col-12 mt-4'>
+                                                                            <h6>Others</h6>
                                                                             {
-                                                                                dns?.Others?.map((ele) => {
-                                                                                    return (
-                                                                                        <>
-                                                                                            <h5>{ele}</h5>
-                                                                                        </>
-                                                                                    )
-                                                                                })
+                                                                                dns?.Others.length === 0 ? <h5>N/A</h5> : (
+                                                                                    <>
+                                                                                        {
+                                                                                            dns?.Others?.map((ele) => {
+                                                                                                return (
+                                                                                                    <>
+                                                                                                        <h5>{ele}</h5>
+                                                                                                    </>
+                                                                                                )
+                                                                                            })
+                                                                                        }
+                                                                                    </>
+                                                                                )
                                                                             }
-                                                                        </>
-                                                                    )
-                                                                }
-                                                            </div>
+                                                                        </div>
 
-                                                        </div>
+                                                                    </div>
+                                                                </>
+                                                            )
+                                                        }
+
+
 
                                                     </div>
                                                 </div>
