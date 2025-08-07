@@ -11,6 +11,7 @@ import SeoDifficultyChart from '../../../../components/seoDifficultyChart/seoDif
 import TrafficChart from '../../../../components/trafficChart/trafficChart';
 import ReverseIpTable from '../../../../components/reverseIpTable/reverseIpTable';
 import Skeleton from 'react-loading-skeleton';
+import WorldHeatMap from '../../../../components/worldHeatMap/worldHeatMap';
 
 const Overview = ({ loading, domainData, isDomainAvailable, suggestions, suggestionsLoading }) => {
 
@@ -478,7 +479,7 @@ const Overview = ({ loading, domainData, isDomainAvailable, suggestions, suggest
                                                                                 dns?.NS?.length === 0 ? <h5>N/A</h5> : (
                                                                                     <>
                                                                                         {
-                                                                                            dns?.NS?.map((ele) => {
+                                                                                            dns?.NS?.slice(0, 4)?.map((ele) => {
                                                                                                 return (
                                                                                                     <>
                                                                                                         <h5>{ele}</h5>
@@ -517,20 +518,15 @@ const Overview = ({ loading, domainData, isDomainAvailable, suggestions, suggest
                                                                         <div className='col-12 mt-4'>
                                                                             <h6>SOA</h6>
                                                                             {
-                                                                                dns?.SOA.length === 0 ? <h5>N/A</h5> : (
-                                                                                    <>
-                                                                                        {
-                                                                                            dns?.SOA?.map((ele) => {
-                                                                                                return (
-                                                                                                    <>
-                                                                                                        <h5>{ele}</h5>
-                                                                                                    </>
-                                                                                                )
-                                                                                            })
-                                                                                        }
-                                                                                    </>
+                                                                                dns?.SOA?.length === 0 ? (
+                                                                                    <h5>N/A</h5>
+                                                                                ) : (
+                                                                                    dns.SOA?.map((ele, index) => (
+                                                                                        <h5 key={index}>{ele}</h5>
+                                                                                    ))
                                                                                 )
                                                                             }
+
                                                                         </div>
                                                                         <div className='col-12 mt-4'>
                                                                             <h6>TXT</h6>
@@ -538,7 +534,7 @@ const Overview = ({ loading, domainData, isDomainAvailable, suggestions, suggest
                                                                                 dns?.TXT.length === 0 ? <h5>N/A</h5> : (
                                                                                     <>
                                                                                         {
-                                                                                            dns?.TXT?.map((ele) => {
+                                                                                            dns?.TXT?.slice(0, 4)?.map((ele) => {
                                                                                                 return (
                                                                                                     <>
                                                                                                         <h5>{ele}</h5>
@@ -590,6 +586,15 @@ const Overview = ({ loading, domainData, isDomainAvailable, suggestions, suggest
                                             </div>
 
                                         </div>
+
+                                        <div className={`${styles.heatMap} mt-4`}>
+                                            <div className={styles.card}>
+
+                                                    <WorldHeatMap tldUsageData={domainData?.tldUsage || []} />
+                                            
+                                            </div>
+                                        </div>
+
                                     </>
                                 ) : (
                                     <>

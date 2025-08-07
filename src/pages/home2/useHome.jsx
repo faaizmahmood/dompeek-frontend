@@ -38,6 +38,7 @@ const useHome = () => {
         ssl: null,
         suggestions: null,
         whois: null,
+        tldUsage: null,
     });
 
     let domain = ''
@@ -68,6 +69,19 @@ const useHome = () => {
             setIsDomainAvailable(false);
             setIsDomainAvailable(false);  // reset before fetch
 
+            setDomainData({
+                blacklist: null,
+                dns: null,
+                ipGeolocation: null,
+                reverseIP: null,
+                seoMetrics: null,
+                ssl: null,
+                suggestions: null,
+                whois: null,
+                tldUsage: null,
+            });
+            setSuggestions([]);
+
             const res = await apiService.get('/domain/overview', { domain });
 
             // ✅ Handle available domain shortcut
@@ -81,6 +95,8 @@ const useHome = () => {
                     seoMetrics: null,
                     ssl: null,
                     whois: null,
+                    tldUsage: null,
+                    
                 });
 
                 fetchSuggestions(domain);
@@ -98,6 +114,7 @@ const useHome = () => {
                 seoMetrics: results.seoMetrics?.success ? results.seoMetrics.data : null,
                 ssl: results.ssl?.success ? results.ssl.data : { error: results.ssl?.error || 'SSL fetch failed' },
                 whois: results.whois?.success ? results.whois.data : null,
+                tldUsage: results.tldUsage?.success ? results.tldUsage.data : null,
             });
 
             fetchSuggestions(domain);

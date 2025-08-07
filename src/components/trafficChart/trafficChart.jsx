@@ -19,21 +19,23 @@ const TrafficChart = ({ domainData }) => {
     };
 
     const series = [
-        normalized.Visits.toFixed(1),
-        normalized.BounceRate.toFixed(1),
-        normalized.PagePerVisit.toFixed(1),
-        normalized.TimeOnSite.toFixed(1),
-    ].map(Number); // convert to number
+        normalized.Visits,
+        normalized.BounceRate,
+        normalized.PagePerVisit,
+        normalized.TimeOnSite,
+    ].map(num => Number(num.toFixed(1)));
+
+    // ✅ Fallback: If all values are 0 or NaN
+    const hasValidData = series.some(value => !isNaN(value) && value > 0);
 
     const options = {
         chart: {
             width: "100%",
             type: "pie",
             background: 'transparent',
-
         },
         stroke: {
-            show: false,           // ✅ disables stroke entirely
+            show: false,
             width: 0,
             colors: ['transparent']
         },
@@ -43,7 +45,7 @@ const TrafficChart = ({ domainData }) => {
             mode: "dark",
         },
         legend: {
-            show: false, // ✅ Hides legend on all screen sizes
+            show: false,
         },
         responsive: [
             {
@@ -62,12 +64,18 @@ const TrafficChart = ({ domainData }) => {
 
     return (
         <div className={`${styles.trafficChart} mt-5`}>
-            <ReactApexChart
-                options={options}
-                series={series}
-                type="pie"
-                width={260}
-            />
+            {hasValidData ? (
+                <ReactApexChart
+                    options={options}
+                    series={series}
+                    type="pie"
+                    width={260}
+                />
+            ) : (
+                <div className="text-muted text-center py-4">
+                    <h6 className="text-whitw" style={{ fontSize: "14px" }}>No traffic data available for this domain</h6>
+                </div>
+            )}
         </div>
     );
 };
