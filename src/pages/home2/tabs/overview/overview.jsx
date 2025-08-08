@@ -587,13 +587,13 @@ const Overview = ({ loading, domainData, isDomainAvailable, suggestions, suggest
 
                                         </div>
 
-                                        <div className={`${styles.heatMap} mt-4`}>
+                                        {/* <div className={`${styles.heatMap} mt-4`}>
                                             <div className={styles.card}>
 
                                                     <WorldHeatMap tldUsageData={domainData?.tldUsage || []} />
                                             
                                             </div>
-                                        </div>
+                                        </div> */}
 
                                     </>
                                 ) : (
@@ -606,8 +606,6 @@ const Overview = ({ loading, domainData, isDomainAvailable, suggestions, suggest
                                     </>
                                 )
                             }
-
-
 
                         </div>
 

@@ -6,7 +6,7 @@
         border-radius: 10px;
         height: 100%;
 
-        h4{
+        h4 {
             color: white;
             font-weight: 400;
             font-size: 20px;
@@ -22,8 +22,10 @@
             color: white;
             font-weight: 600;
             font-size: 16px;
-            word-break: break-word;  /* breaks long words */
-  overflow-wrap: break-word; /* fallback for older browsers */
+            word-break: break-word;
+            /* breaks long words */
+            overflow-wrap: break-word;
+            /* fallback for older browsers */
         }
     }
 
@@ -155,20 +157,20 @@
     }
 
 
-    .fallbackContainer{
+    .fallbackContainer {
 
-        button{
+        button {
             padding: 15px 35px;
-                    border: none;
-                    outline: none;
-                    border-radius: 8px;
-                    background-color: var(--primary-color);
-                    color: white;
-                    font-size: 18px;
-                    display: flex;
-                    align-items: center;
-                    position: relative;
-                    transition: background 1s ease;
+            border: none;
+            outline: none;
+            border-radius: 8px;
+            background-color: var(--primary-color);
+            color: white;
+            font-size: 18px;
+            display: flex;
+            align-items: center;
+            position: relative;
+            transition: background 1s ease;
         }
 
     }

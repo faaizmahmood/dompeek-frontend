@@ -28,7 +28,9 @@ const Home = () => {
         limitError,
         isDomainAvailable,
         suggestionsLoading,
-        suggestions
+        suggestions,
+        aiSummary,
+        aiLoading
     } = useHome()
 
 
@@ -117,7 +119,7 @@ const Home = () => {
                                         ) : (
                                             <>
                                                 <div className={`${styles.tabPanel} ${activeTab === "ai" ? styles.show : ''}`}>
-                                                    <AiInsights />
+                                                    <AiInsights loading={loading} aiSummary={aiSummary} aiLoading={aiLoading} />
                                                 </div>
                                             </>
                                         )
