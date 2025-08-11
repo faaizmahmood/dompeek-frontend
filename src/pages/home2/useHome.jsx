@@ -116,7 +116,7 @@ const useHome = () => {
             });
             setSuggestions([]);
 
-            const res = await apiService.get("/domain/overview", { domain });
+            const res = await apiService.get("/domain/overview", { domain: selectedDomain });
 
             // ✅ Handle available domain shortcut
             if (res.data?.available === true) {
