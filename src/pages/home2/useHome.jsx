@@ -136,7 +136,7 @@ const useHome = () => {
 
                 setDomainData(minimalData);
                 fetchAiSummary(minimalData);
-                fetchSuggestions(domain);
+                fetchSuggestions(selectedDomain);
 
                 return; // Exit early
             }
@@ -157,7 +157,7 @@ const useHome = () => {
             };
 
             setDomainData(fullData);
-            fetchSuggestions(domain);
+            fetchSuggestions(selectedDomain);
         } catch (error) {
             console.log(error);
             if (error?.response?.status === 429) {
