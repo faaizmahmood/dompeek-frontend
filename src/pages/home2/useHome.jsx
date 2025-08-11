@@ -81,7 +81,7 @@ const useHome = () => {
     const fetchSuggestions = async (domain) => {
         try {
             setSuggestionsLoading(true);
-            const res = await apiService.get("/no/domain/get-suggestions", { domain });
+            const res = await apiService.get("/domain/get-suggestions", { domain });
             setSuggestions(res.data ? res.data : []);
         } catch (error) {
             console.log("Suggestions fetch error:", error);
