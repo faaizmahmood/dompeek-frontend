@@ -8,7 +8,7 @@ const takeScreenshotAndPDF = async () => {
 
   try {
     const canvas = await html2canvas(document.body, {
-      scale: 1,
+      scale: 2,
       useCORS: true,
       windowWidth: document.documentElement.scrollWidth,
       windowHeight: document.documentElement.scrollHeight
