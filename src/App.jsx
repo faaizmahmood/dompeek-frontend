@@ -5,6 +5,7 @@ import { useAppDispatch, useAppSelector } from './redux/hooks'
 import { useEffect } from 'react'
 import { fetchUserProfile } from './redux/authSlice'
 import 'react-loading-skeleton/dist/skeleton.css';
+import "react-tooltip/dist/react-tooltip.css";
 
 function App() {
 

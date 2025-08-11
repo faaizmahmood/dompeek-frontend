@@ -9,6 +9,11 @@ import AiInsights from './tabs/aiInsights/aiInsights';
 import Model from '../../components/model/model';
 import { FaExclamationTriangle } from 'react-icons/fa'
 import { IoLockClosed } from "react-icons/io5";
+import Icon from '../../components/icon/icon';
+import aiTabIcon from '../../assets/icons/aiTab.png'
+import { TbScreenshot } from "react-icons/tb";
+import { Tooltip } from "react-tooltip";
+import takeScreenshotAndPDF from '../../utils/takeScreenshotAndPDF';
 
 const Home = () => {
 
@@ -30,7 +35,8 @@ const Home = () => {
         suggestionsLoading,
         suggestions,
         aiSummary,
-        aiLoading
+        aiLoading,
+        aiData
     } = useHome()
 
 
@@ -47,7 +53,8 @@ const Home = () => {
 
                     <div className={`${styles.inputBox} mt-3`}>
                         <Formik
-                            initialValues={{ domain: domain }}
+                            enableReinitialize
+                            initialValues={{ domain: domain || "" }}
                             validationSchema={validationSchema}
                             onSubmit={(values) => {
 
@@ -67,7 +74,7 @@ const Home = () => {
                             {() => (
                                 <>
                                     <Form>
-                                        <Field type="text" name="domain" placeholder="Google.com" />
+                                        <Field type="text" name="domain" placeholder="i.e. Google.com" />
                                         <button type="submit">Analyze</button>
                                     </Form>
                                     <ErrorMessage name="domain" component="div" className="text-danger ms-1 mt-2" />
@@ -93,7 +100,8 @@ const Home = () => {
                                         className={activeTab === "ai" ? styles.active : ''}
                                         onClick={() => setActiveTab("ai")}
                                     >
-                                        <SiCircuitverse className='me-2' size={25} /> AI Insights
+                                        <Icon path={aiTabIcon} />
+                                        Value & Match
                                     </button>
                                 </div>
 
@@ -119,7 +127,7 @@ const Home = () => {
                                         ) : (
                                             <>
                                                 <div className={`${styles.tabPanel} ${activeTab === "ai" ? styles.show : ''}`}>
-                                                    <AiInsights loading={loading} aiSummary={aiSummary} aiLoading={aiLoading} />
+                                                    <AiInsights loading={loading} aiSummary={aiSummary} aiData={aiData} aiLoading={aiLoading} isDomainAvailable={isDomainAvailable} />
                                                 </div>
                                             </>
                                         )
@@ -136,8 +144,34 @@ const Home = () => {
                     )
                 }
 
+                {/* Screen Shot Icon */}
+
+                <div>
+                    <div
+                        className={styles.screenShotIcon}
+                        data-tooltip-id="screenshot-tooltip"
+                        data-tooltip-content="Took Screenshot"
+                        onClick={takeScreenshotAndPDF}
+                    >
+                        <TbScreenshot size={25} color="white" />
+                    </div>
+
+                    <Tooltip id="screenshot-tooltip" place="top"
+                        style={{
+                            backgroundColor: "#1E293B", // dark slate
+                            color: "#fff",
+                            fontSize: "14px",
+                            padding: "8px 12px",
+                            borderRadius: "8px",
+                            boxShadow: "0px 4px 12px rgba(0,0,0,0.3)",
+                        }}
+                    />
+                </div>
+
 
             </main>
+
+            {/* Model */}
 
             <Model showModal={showModal} handleClose={handleCloseModel}>
                 <div className={styles.limitReached}>
@@ -161,6 +195,9 @@ const Home = () => {
                 </div>
 
             </Model>
+
+
+
 
         </>
     );

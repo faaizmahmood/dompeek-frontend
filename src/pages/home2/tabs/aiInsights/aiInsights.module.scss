@@ -10,7 +10,7 @@
         h4 {
             color: white;
             font-weight: 600;
-            font-size: 20px;
+            font-size: 20px !important;
 
         }
 
@@ -21,9 +21,9 @@
         }
 
         h6 {
-            font-size: 18px;
+            font-size: 18px !important;
             color: #AAAAAA;
-            font-weight: 400;
+            font-weight: 500;
             color: white;
         }
 
@@ -32,11 +32,30 @@
             font-weight: 400;
             font-size: 14px;
             word-break: break-word;
-            /* breaks long words */
+            line-height: 20px !important;
             overflow-wrap: break-word;
-            /* fallback for older browsers */
             margin-top: 10px;
+
+            &.para{
+                font-size: 16px !important;
+                line-height: 24px !important;
+            }
+
         }
+    }
+
+    .avalibility{
+
+                h2 {
+            font-size: 30px;
+            font-weight: 400;
+            color: white;
+        }
+
+        hr {
+            border-top: 2px solid #707070;
+        }
+
     }
 
 
@@ -46,6 +65,7 @@
         padding: 10px 20px;
         border-radius: 5px;
         font-weight: 600;
+        width: fit-content;
 
     }
 

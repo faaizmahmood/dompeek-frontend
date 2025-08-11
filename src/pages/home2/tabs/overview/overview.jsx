@@ -27,7 +27,6 @@ const Overview = ({ loading, domainData, isDomainAvailable, suggestions, suggest
     const revrseIPDomains = domainData?.reverseIP
 
 
-
     const domainInfo = [
         { label: "Owner", value: domainData?.whois?.registrant?.organization || 'N/A' },
         { label: "Registrar", value: domainData?.whois?.registryData?.registrarName || 'Private' },
@@ -255,7 +254,7 @@ const Overview = ({ loading, domainData, isDomainAvailable, suggestions, suggest
                                                                 <h5 className='text-white'>Popularity Score</h5>
 
                                                                 <div className='my-4'>
-                                                                    <CircularProgress percentage={domainData?.seoMetrics?.metrics?.data?.popularity_score} duration={4} label={domainData?.seoMetrics?.metrics?.data?.popularity_score || "N/A"} />
+                                                                    <CircularProgress percentage={domainData?.seoMetrics?.metrics?.data?.popularity_score * 10} duration={4} label={domainData?.seoMetrics?.metrics?.data?.popularity_score || "N/A"} />
                                                                 </div>
 
                                                             </div>
@@ -297,6 +296,20 @@ const Overview = ({ loading, domainData, isDomainAvailable, suggestions, suggest
 
                                             </div>
 
+                                        </div>
+
+                                        {/* Heat Map */}
+
+                                        <div className={`${styles.heatMap} mt-4`}>
+
+                                            <div className={styles.card}>
+                                                <h4 className='mb-4'>HeatMap</h4>
+
+                                                {domainData?.tldUsage?.length > 0 && (
+                                                    <WorldHeatMap rawData={domainData.tldUsage} />
+                                                )}
+
+                                            </div>
                                         </div>
 
                                         <div className={`${styles.searchTrend} mt-4`}>
@@ -587,13 +600,6 @@ const Overview = ({ loading, domainData, isDomainAvailable, suggestions, suggest
 
                                         </div>
 
-                                        {/* <div className={`${styles.heatMap} mt-4`}>
-                                            <div className={styles.card}>
-
-                                                    <WorldHeatMap tldUsageData={domainData?.tldUsage || []} />
-                                            
-                                            </div>
-                                        </div> */}
 
                                     </>
                                 ) : (

@@ -17,6 +17,7 @@ const useHome = () => {
     const [suggestions, setSuggestions] = useState([]);
     const [suggestionsLoading, setSuggestionsLoading] = useState(false);
     const [aiSummary, setAISummary] = useState([]);
+    const [domain, setDomain] = useState("");
 
     const currentUser = useAppSelector((state) => state.user.profile);
 
@@ -32,15 +33,38 @@ const useHome = () => {
         tldUsage: null,
     });
 
-    let domain = "";
+    const [aiData, setAIData] = useState({
+        historySeo: null,
+        summary: null,
+    });
+
+    // let domain = "";
 
     const handleCloseModel = () => setShowModal(false);
 
     const fetchAiSummary = async (domainDataPayload) => {
         try {
             setAiLoading(true);
+
+            setAIData({
+                historySeo: null,
+                summary: null,
+            });
+
             const res = await apiService.post("/domain/ai-summary", { domainData: domainDataPayload });
+
+
+            setAIData({
+                historySeo: res?.data?.results?.historySeo,
+                summary: res?.data?.results?.summary,
+                trustRiskCompetitive: res?.data?.results?.trustRiskCompetitive,
+                buyerMatchDomainLiquidity: res?.data?.results?.buyerMatchDomainLiquidity,
+                aiRecommendations: res?.data?.results?.aiRecommendations,
+            });
+
             setAISummary(res.data);
+
+
             console.log("✅ AI Analysis Response:", res.data);
         } catch (err) {
             console.error("❌ API Error:", err);
@@ -57,7 +81,7 @@ const useHome = () => {
     const fetchSuggestions = async (domain) => {
         try {
             setSuggestionsLoading(true);
-            const res = await apiService.get("/domain/get-suggestions", { domain });
+            const res = await apiService.get("/no/domain/get-suggestions", { domain });
             setSuggestions(res.data ? res.data : []);
         } catch (error) {
             console.log("Suggestions fetch error:", error);
@@ -68,8 +92,10 @@ const useHome = () => {
 
     const fetchOverviewData = async (domainOverride = null) => {
         const params = new URLSearchParams(location.search);
-        domain = domainOverride || params.get("domain");
-        if (!domain) return;
+        const selectedDomain = domainOverride || params.get("domain");
+        if (!selectedDomain) return;
+
+        setDomain(selectedDomain)
 
         try {
             setLoading(true);
@@ -176,6 +202,7 @@ const useHome = () => {
         suggestions,
         aiSummary,
         aiLoading,
+        aiData
     };
 };
 
