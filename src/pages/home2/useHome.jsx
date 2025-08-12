@@ -130,7 +130,7 @@ const useHome = () => {
                     reverseIP: null,
                     seoMetrics: null,
                     ssl: null,
-                    whois: { domainName: domain },
+                    whois: { domainName: selectedDomain },
                     tldUsage: null,
                 };
 

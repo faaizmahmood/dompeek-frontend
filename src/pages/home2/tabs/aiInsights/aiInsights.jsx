@@ -339,7 +339,7 @@ const AiInsights = ({ loading, aiSummary, aiData, aiLoading, isDomainAvailable }
                         {trustRiskCompetitive?.trust_risk?.trust_score} (
                         {trustRiskCompetitive?.trust_risk?.trust_score <= 40 ? (
                           <>
-                            <Icon path={leaderIcon} size={1} /> Low
+                            <Icon path={laggingIcon} size={1} /> Low
                           </>
                         ) : trustRiskCompetitive?.trust_risk?.trust_score <= 70 ? (
                           <>
@@ -347,7 +347,7 @@ const AiInsights = ({ loading, aiSummary, aiData, aiLoading, isDomainAvailable }
                           </>
                         ) : (
                           <>
-                            <Icon path={laggingIcon} size={1} /> High
+                            <Icon path={leaderIcon} size={1} /> High
                           </>
                         )}
                         )
