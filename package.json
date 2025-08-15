@@ -47,6 +47,7 @@
     "react-tooltip": "^5.29.1",
     "recharts": "^3.1.0",
     "sass": "^1.89.2",
+    "three": "^0.179.1",
     "topojson-client": "^3.1.0",
     "yup": "^1.6.1"
   },

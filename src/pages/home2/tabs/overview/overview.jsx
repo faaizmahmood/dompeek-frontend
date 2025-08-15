@@ -300,7 +300,7 @@ const Overview = ({ loading, domainData, isDomainAvailable, suggestions, suggest
 
                                         {/* Heat Map */}
 
-                                        <div className={`${styles.heatMap} mt-4`}>
+                                        {/* <div className={`${styles.heatMap} mt-4`}>
 
                                             <div className={styles.card}>
                                                 <h4 className='mb-4'>HeatMap</h4>
@@ -310,7 +310,7 @@ const Overview = ({ loading, domainData, isDomainAvailable, suggestions, suggest
                                                 )}
 
                                             </div>
-                                        </div>
+                                        </div> */}
 
                                         <div className={`${styles.searchTrend} mt-4`}>
                                             <SearchTrendChart domainData={domainData} />
